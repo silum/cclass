@@ -219,7 +219,7 @@ xwalkheap()
 			++alloced;
 
 			/* print out buffer */
-			printf("xwalkheap: %s\n", buffer);
+			printf("%s: %s\n", __func__, buffer);
 			p = p->next;
 			if (p == heap) {
 				break;
