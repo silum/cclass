@@ -47,7 +47,7 @@ test_LDADD = \
 test_SOURCES = \
     test.c
 
-test_LDADD = \
+test_leak_LDADD = \
     $(top_builddir)/libcclass.la
 test_leak_SOURCES = \
     test_leak.c
