@@ -1,0 +1,22 @@
+$Id$
+
+C Class Library
+===============
+
+A development and runtime library for an object-based private class
+implementation method for C.
+
+This work is derived from the on-line book:
+
+    Writing Bug-Free C Code
+    A Programming Style That Automatically Detects Bugs in C Code
+    by Jerry Jongerius / January 1995
+
+    http://www.duckware.com/bugfreec/
+    <last visited: Tue Sep 28 08:20:13 SAST 2004>
+
+ToDo
+====
+
+- Create an RPM
+- Fix up documentation
