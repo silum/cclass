@@ -42,11 +42,13 @@ libcclass_la_SOURCES = \
     xassert.c \
     xmalloc.c
 
-test_LDFLAGS = libcclass.la
+test_LDADD = \
+    $(top_builddir)/libcclass.la
 test_SOURCES = \
     test.c
 
-test_leak_LDFLAGS = libcclass.la
+test_LDADD = \
+    $(top_builddir)/libcclass.la
 test_leak_SOURCES = \
     test_leak.c
 
