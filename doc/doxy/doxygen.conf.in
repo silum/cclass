@@ -68,7 +68,7 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = @abs_top_srcdir@/src
+INPUT                  = @abs_top_srcdir@
 FILE_PATTERNS          = *.c \
                          *.h
 RECURSIVE              = NO

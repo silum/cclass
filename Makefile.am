@@ -52,12 +52,12 @@ test_leak_LDADD = \
 test_leak_SOURCES = \
     test_leak.c
 
-# .PHONY: doc
-# doc:
-# 	doxygen doxygen.conf
+.PHONY: doc
+doc: doc/doxy/doxygen.conf
+	doxygen $< > /dev/null
 
-# maintainer-clean-local:
-# 	-rm -rf doc/html/ doc/latex/
+maintainer-clean-local:
+	-rm -rf doc/html/ doc/latex/
 
 AUX_DIR = @ac_aux_dir@
 
