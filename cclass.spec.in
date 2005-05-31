@@ -37,6 +37,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+ldconfig
+
 %files
 %defattr(-,root,root,-)
 %_libdir
