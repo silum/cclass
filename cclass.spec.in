@@ -3,14 +3,13 @@ Version:        @PACKAGE_VERSION@
 Release:        1
 Summary:        C private class methodology
 
-Group:          Development/Libraries
+Group:          System Environment/Libraries
 License:        GPL
 URL:            http://medsvr.tlabs.ac.za/wsvn/cclass
 Source0:        %{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  doxygen
-# Requires:       
 
 %description
 An object based framework for C.
@@ -21,6 +20,14 @@ Writing Bug-Free C Code
 A Programming Style That Automatically Detects Bugs in C Code
 by Jerry Jongerius / January 1995
 http://www.duckware.com/bugfreec/
+
+%package devel
+Summary:        C private class methodology
+Group:          Development/Libraries
+Requires:       %{name} = %{version}
+
+%description devel
+Development files for %{name}.
 
 %prep
 %setup -q
@@ -42,13 +49,15 @@ ldconfig
 
 %files
 %defattr(-,root,root,-)
-%_libdir
+%_libdir/*.so*
+%doc AUTHORS BUILD ChangeLog NEWS README
+
+%files devel
+%defattr(-,root,root,-)
+%_libdir/*.a
+%_libdir/*.la
 %_includedir
-%doc AUTHORS
-%doc BUILD
-%doc ChangeLog
-%doc NEWS
-%doc README
+%doc AUTHORS BUILD ChangeLog NEWS README
 %doc doc/html
 
 %changelog

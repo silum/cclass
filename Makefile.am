@@ -59,6 +59,10 @@ doc: doc/doxy/doxygen.conf
 maintainer-clean-local:
 	-rm -rf doc/html/ doc/latex/
 
+.PHONY: distrpm
+distrpm: distcheck
+	rpmbuild -ta $(distdir).tar.gz
+
 AUX_DIR = @ac_aux_dir@
 
 EXTRA_DIST = \
