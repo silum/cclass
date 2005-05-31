@@ -15,6 +15,10 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+/**
+ * @file
+ * @brief report_xassert() function and debug framework definition
+ */
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
@@ -23,7 +27,7 @@
 #include "xassert.h"
 #include "xmalloc.h"
 
-USE_XASSERT;
+USE_XASSERT
 
 bool XASSERT_INTERACTIVE = true;
 bool XASSERT_FAILURE = false;

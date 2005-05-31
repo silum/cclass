@@ -15,6 +15,10 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+/**
+ * @file
+ * @brief Memory allocation function definition
+ */
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,12 +27,13 @@
 #include "classdef.h"
 #include "xmalloc.h"
 
-USE_XASSERT;
+USE_XASSERT
 
-/* Heap objects are aligned on sizeof(int) boundaries */
+#ifndef DOXYGEN_SKIP
 #define ALIGNMENT (sizeof(int))
 #define DOALIGN(num) (((num)+ALIGNMENT-1)&~(ALIGNMENT-1))
 compiler_assert(ISPOWER2(ALIGNMENT));
+#endif
 
 /* Prefix structure before every heap object */
 #ifndef DOXYGEN_SKIP
@@ -60,31 +65,29 @@ static prefix *heap = 0;
 
 /* Local prototypes */
 /**
- * @brief add heap object to linked list)
+ * @brief Add heap object to linked list)
  *
- * add the given heap object into the doubly linked list of heap
+ * Add the given heap object into the doubly linked list of heap
  * objects
  *
  * @param p  prefix pointer to heap object
- *
- * @return
  */
 static void list_insert(prefix *p);
 
 /**
- *  @brief remove heap object from linked list)
+ * @brief Remove heap object from linked list)
  *
- *  remove the given heap object from the doubly linked list of heap
- *  objects
+ * Remove the given heap object from the doubly linked list of heap
+ * objects
  *
- *  @param p  prefix pointer to heap object
+ * @param p  prefix pointer to heap object
  */
 static void list_remove(prefix *p);
 
 /**
- * @brief verify heap pointer)
+ * @brief Verify heap pointer)
  *
- * verify that a pointer points into that heap to a valid object in the
+ * Verify that a pointer points into that heap to a valid object in the
  * heap
  *
  * @param p  heap pointer to validate
@@ -94,9 +97,9 @@ static void list_remove(prefix *p);
 static bool list_verify(void *p);
 
 /**
- * @brief render description of heap object)
+ * @brief Render description of heap object)
  *
- * render a text description for the given heap object
+ * Render a text description for the given heap object
  *
  * @param p  prefix pointer to heap object
  * @param buffer  where to place text description

@@ -17,7 +17,7 @@
 # Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 AC_PREREQ(2.57)
-AC_INIT(cclass, 0.0, dsm@tlabs.ac.za)
+AC_INIT(cclass, 0.1, dsm@tlabs.ac.za)
 LIBVERSION="0:0:0"
 AC_SUBST(LIBVERSION)
 
@@ -51,6 +51,7 @@ AC_CHECK_HEADERS([sys/cdefs.h stdbool.h],,
 # Checks for library functions.
 
 AC_CONFIG_FILES([
+    cclass.spec
     doc/doxy/doxygen.conf
     Makefile
 ])

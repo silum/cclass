@@ -14,36 +14,41 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- *
- *
- * report_xassert function and debug framework
  */
-#ifndef DSM_DEBUG_XASSERT_H
-#define DSM_DEBUG_XASSERT_H 1
+/**
+ * @file
+ * @brief report_xassert() function and debug framework declaration
+ */
+#ifndef ITL_DEBUG_XASSERT_H
+#define ITL_DEBUG_XASSERT_H
 
 #include <stdbool.h> /*  bool  */
 #include <sys/cdefs.h>
 
 __BEGIN_DECLS
 
-/* macro to silence "empty body in an else-statement" warning, when
- * using xassert in the form `xassert(expr);' */
+/**
+ * @brief Macro to avoid compiler warning.
+ *
+ * Macro to silence "empty body in an else-statement" warning, when
+ * using xassert in the form \c xassert(expr);
+ */
 #define XASSERT(expr) xassert(expr){}
 
 /**
- * @brief flag to enable or disable pausing for user input on assertion
+ * @brief Flag to enable or disable pausing for user input on assertion
  * failure report
  */
 extern bool XASSERT_INTERACTIVE;
 /**
- * @brief set to true when an assertion failure has occured
+ * @brief Set to true when an assertion failure has occured
  */
 extern bool XASSERT_FAILURE;
 
 /**
- * @brief user defined assertion failure report
+ * @brief User defined assertion failure report
  *
- * prints an error message refering to the file name and line number
+ * Print an error message refering to the file name and line number
  * where the error has occured
  *
  * @param file  name of file where error occured
@@ -53,9 +58,9 @@ void report_xassert(const char *file,
 		    int line);
 
 /**
- * @brief test framework function
+ * @brief Test framework function
  *
- * calls the user function and tests for assertion failures and memory
+ * Call the user function and tests for assertion failures and memory
  * allocation on return
  *
  * @param user_func  user defined function
@@ -66,4 +71,4 @@ int debug_test(void (*user_func)());
 
 __END_DECLS
 
-#endif /* DSM_DEBUG_XASSERT */
+#endif /* ITL_DEBUG_XASSERT */

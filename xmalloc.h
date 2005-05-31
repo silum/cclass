@@ -14,41 +14,36 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- *
- *
- * memory allocation functions
- *
- * Based on the source presented in
- *
- * Writing Bug-Free C Code
- * A Programming Style That Automatically Detects Bugs in C Code
- * by Jerry Jongerius / January 1995
- *
- * http://www.duckware.com/bugfreec/
- * <last visited: Tue Sep 28 08:20:13 SAST 2004>
  */
-#ifndef DSM_XMALLOC_H
-#define DSM_XMALLOC_H 1
+/**
+ * @file
+ * @brief Memory allocation function declarations
+ */
+#ifndef ITL_XMALLOC_H
+#define ITL_XMALLOC_H
 
 #include <stdbool.h> /*  bool  */
 #include <classdef.h>
 
 __BEGIN_DECLS
 
+/**
+ * @brief xmalloc utility macro
+ */
 #define xmalloc(size) \
      xnew(size, 0, __FILE__, __LINE__)
 
 /**
- *  @brief memory new
+ * @brief Memory new
  *
- *  allocate a new block of memory from the heap
+ * Allocate a new block of memory from the heap
  *
- *  @param size  size of object to allocate
- *  @param desc  class descriptor for object (or 0)
- *  @param file  filename where object was allocated
- *  @param line  line number where object was allocated
+ * @param size  size of object to allocate
+ * @param desc  class descriptor for object (or 0)
+ * @param file  filename where object was allocated
+ * @param line  line number where object was allocated
  *
- *  @return a pointer to the memory object or 0
+ * @return a pointer to the memory object or 0
  */
 void *
 xnew(size_t size,
@@ -57,9 +52,9 @@ xnew(size_t size,
      int line);
 
 /**
- * @brief memory Free
+ * @brief Memory Free
  *
- * free a block of memory that was previously allocated through xnew()
+ * Free a block of memory that was previously allocated through xnew()
  *
  * @param p  heap pointer to free or 0
  *
@@ -68,9 +63,9 @@ xnew(size_t size,
 void *xfree(void *p);
 
 /**
- * @brief memory realloc
+ * @brief Memory realloc
  *
- * reallocate a block of memory
+ * Reallocate a block of memory
  *
  * @param p  heap object to reallocate or 0
  * @param size  new size of the object
@@ -85,9 +80,9 @@ void *xrealloc(void *p,
 	       int line);
 
 /**
- * @brief memory string dup
+ * @brief Memory string dup
  *
- * helper function for the xstrdup() macro
+ * Helper function for the xstrdup() macro
  *
  * @param s  string to duplicate (or 0)
  * @param file  filename where string is being duplicated
@@ -100,18 +95,18 @@ void *xstrdup(const char *s,
 	      int line);
 
 /**
- * @brief walk heap
+ * @brief Walk heap
  *
- * display a symbolic dump of the heap by walking the heap and
+ * Display a symbolic dump of the heap by walking the heap and
  * displaying all objects in the heap.
  */
 int
 xwalkheap();
 
 /**
- * @brief does pointer point into the heap)
+ * @brief Does pointer point into the heap)
  *
- * does the given memory pointer point anywhere into the heap
+ * Does the given memory pointer point anywhere into the heap
  *
  * @param p  heap pointer to check
  *
@@ -121,7 +116,7 @@ bool
 xtestptr(void *p);
 
 /**
- * @brief prototype for user defined xassert report function
+ * @brief Prototype for user defined xassert report function
  *
  * @param file  name of file where assertion failed
  * @param line  line number where assertion failed
@@ -132,4 +127,4 @@ report_xassert(const char *file,
 
 __END_DECLS
 
-#endif /* DSM_XMALLOC_H */
+#endif /* ITL_XMALLOC_H */

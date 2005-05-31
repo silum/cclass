@@ -64,7 +64,9 @@ AUX_DIR = @ac_aux_dir@
 EXTRA_DIST = \
     $(AUX_DIR)/bootstrap \
     $(AUX_DIR)/clobber \
-    $(AUX_DIR)/subdir
+    $(AUX_DIR)/subdir \
+    BUILD \
+    cclass.spec
 
 AUX_DIST = \
     $(AUX_DIR)/compile \

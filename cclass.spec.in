@@ -1,0 +1,55 @@
+Name:           @PACKAGE_NAME@
+Version:        @PACKAGE_VERSION@
+Release:        1
+Summary:        C private class methodology
+
+Group:          Development/Libraries
+License:        GPL
+URL:            http://medsvr.tlabs.ac.za/wsvn/cclass
+Source0:        %{name}-%{version}.tar.gz
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+BuildRequires:  doxygen
+# Requires:       
+
+%description
+An object based framework for C.
+
+Based on the source presented in:
+
+Writing Bug-Free C Code
+A Programming Style That Automatically Detects Bugs in C Code
+by Jerry Jongerius / January 1995
+http://www.duckware.com/bugfreec/
+
+%prep
+%setup -q
+
+%build
+%configure
+make %{?_smp_mflags}
+make doc
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,root,root,-)
+%_libdir
+%_includedir
+%doc AUTHORS
+%doc BUILD
+%doc ChangeLog
+%doc NEWS
+%doc README
+%doc doc/html
+
+%changelog
+* Tue May 31 2005  Deneys S. Maartens  <dsm@tlabs.ac.za>
+- create spec file
+
+# -fin-

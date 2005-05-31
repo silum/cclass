@@ -14,30 +14,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+/**
+ * @mainpage
+ * C private class methodology, based on the source presented in:
  *
- *
- * C private class methodology
- *
- * Based on the source presented in
- *
- * Writing Bug-Free C Code
- * A Programming Style That Automatically Detects Bugs in C Code
- * by Jerry Jongerius / January 1995
+ * "Writing Bug-Free C Code -- A Programming Style That Automatically
+ * Detects Bugs in C Code" by Jerry Jongerius / January 1995
  *
  * http://www.duckware.com/bugfreec/
  * <last visited: Tue Sep 28 08:20:13 SAST 2004>
  */
-#ifndef DSM_CLASSDEF_H
-#define DSM_CLASSDEF_H 1
+/**
+ * @file
+ * @brief C-Class declaration
+ */
+#ifndef ITL_CLASSDEF_H
+#define ITL_CLASSDEF_H
 
 #include <sys/types.h> /* size_t */
 
 __BEGIN_DECLS
 
 /**
- * @brief assert during compiling (not run-time)
+ * @brief Assert during compile-time (not run-time)
  *
- * will produce a compiler error of assertion does not hold
+ * Will produce a compiler error of assertion does not hold.
  *
  * @param exp  expression to be asserted
  */
@@ -48,7 +50,7 @@ __BEGIN_DECLS
 #endif /* DOXYGEN_SKIP */
 
 /**
- * @brief absolute value of value
+ * @brief Absolute value utility definition
  */
 #ifndef DOXYGEN_SKIP
 #define ABS(x) (((x)>0)?(x):-(x))
@@ -57,7 +59,7 @@ __BEGIN_DECLS
 #endif /* DOXYGEN_SKIP */
 
 /**
- * @brief test if a number is a power of two
+ * @brief Test if a number is a power of two
  */
 #ifndef DOXYGEN_SKIP
 #define ISPOWER2(x) (!((x)&((x)-1)))
@@ -66,16 +68,16 @@ __BEGIN_DECLS
 #endif /* DOXYGEN_SKIP */
 
 /**
- * @brief number of static elements in an array
+ * @brief Number of static elements in an array
  */
 #define NUMSTATICELS(array) (sizeof(array)/sizeof(*array))
 
 /**
- * @brief enables xassert support in a source file
+ * @brief Enables xassert support in a source file
  *
- * by calling this macro at the top of a source file, the
- * _do_xassert macro declared.  xassert used the _do_xassert macro to
- * print a run-time error message and by calling the user defined
+ * By calling this macro at the top of a source file, the _do_xassert
+ * macro declared.  \c xassert() uses the _do_xassert macro to print a
+ * run-time error message and by calling the user defined
  * report_xassert() function with the file name and line number where
  * the assertion failure occured.
  */
@@ -92,7 +94,7 @@ __BEGIN_DECLS
 #endif /* DOXYGEN_SKIP */
 
 /**
- * @brief class descriptor
+ * @brief Class descriptor
  */
 #ifndef DOXYGEN_SKIP
 typedef struct classdesc_tag {
@@ -101,7 +103,7 @@ typedef struct classdesc_tag {
 #endif /* DOXYGEN_SKIP */
 
 /**
- * @brief declare a new handle
+ * @brief Declare a new handle
  *
  * NEWHANDLE() declarations are almost always placed in an
  * include file that gets included into all source files. NEWHANDLE() is
@@ -109,29 +111,29 @@ typedef struct classdesc_tag {
  *
  * @param handle  new handle to declare
  *
- * for example:
+ * For example:
  * @code
  * NEWHANDLE(list_t);
  * @endcode
  */
 #define NEWHANDLE(handle) typedef struct tag_##handle *handle
 
-/* class descriptor name from object name */
 #ifndef DOXYGEN_SKIP
+/* class descriptor name from object name */
 #define _CD(obj) obj##_classdesc
 #endif /* DOXYGEN_SKIP */
 
 /**
- * @brief the class macro
+ * @brief The class macro
  *
- * the CLASS() macro is used only by source files that implement an
- * object.  the CLASS() macro is never used in include files.
+ * The CLASS() macro is used only by source files that implement an
+ * object.  The CLASS() macro is never used in include files.
  *
  * @param object  the object handle, to be used in the VERIFY* type
  * macros
  * @param handle  the object handle type, used to declare an object
  *
- * for example:
+ * For example:
  * @code
  * CLASS(list, list_t)
  * @endcode
@@ -146,12 +148,12 @@ typedef struct classdesc_tag {
 
 /* object verification macros */
 /**
- * @brief verify an object
+ * @brief Verify an object
  *
- * verify that the object (variable name) matches the object type, as
+ * Verify that the object (variable name) matches the object type, as
  * declared to the heap manager
  *
- * for example:
+ * For example:
  * @code
  * VERIFY(obj);
  * // or
@@ -163,12 +165,12 @@ typedef struct classdesc_tag {
 #define VERIFY(obj) xassert(_VERIFY(obj))
 
 /**
- * @brief verify an object, allows NULL too
+ * @brief Verify an object, allows NULL too
  *
- * verify that the object (variable name) matches the object type, as
+ * Verify that the object (variable name) matches the object type, as
  * declared to the heap manager, or that the object is NULL
  *
- * for example:
+ * For example:
  * @code
  * VERIFYZ(obj);
  * // or
@@ -190,11 +192,11 @@ typedef struct classdesc_tag {
 #endif /* DOXYGEN_SKIP */
 
 /**
- * @brief allocate memory for an object
+ * @brief Allocate memory for an object
  *
  * @param obj  object to allocate
  *
- * for example:
+ * For example:
  * @code
  * obj_t obj;
  * NEWOBJ(obj);
@@ -204,11 +206,11 @@ typedef struct classdesc_tag {
   (obj = xnew(sizeof(*obj),&_CD(obj),SRCFILE,__LINE__))
 
 /**
- * @brief free memory allocated memory for an object
+ * @brief Free memory allocated memory for an object
  *
  * @param obj  object to free
  *
- * for example:
+ * For example:
  * @code
  * FREEOBJ(obj);
  * @endcode
@@ -216,7 +218,7 @@ typedef struct classdesc_tag {
 #define FREEOBJ(obj) (obj = xfree(obj))
 
 /**
- * @brief allocates memory for a string of size - 1 bytes
+ * @brief Allocates memory for a string of size - 1 bytes
  *
  * @param dest  new string
  * @param size  number of bytes to allocate
@@ -225,7 +227,7 @@ typedef struct classdesc_tag {
   (dest = xnew((size_t)(size),NULL,SRCFILE,__LINE__))
 
 /**
- * @brief  duplicate a string
+ * @brief Duplicate a string
  *
  * @param dest  duplicated string
  * @param source  string to duplicate
@@ -234,7 +236,7 @@ typedef struct classdesc_tag {
   (dest = xstrdup(source,SRCFILE,__LINE__))
 
 /**
- * @brief allocate memory to contain N (size) array elements
+ * @brief Allocate memory to contain N (size) array elements
  *
  * @param array  new array
  * @param size  number of elements to allocate
@@ -244,7 +246,7 @@ typedef struct classdesc_tag {
   NULL,SRCFILE,__LINE__))
 
 /**
- * @brief resize an array so contain N (size) array elements
+ * @brief Resize an array so contain N (size) array elements
  *
  * @param array  resized array
  * @param size  number of elements
@@ -255,4 +257,4 @@ typedef struct classdesc_tag {
 
 __END_DECLS
 
-#endif /* DSM_CLASSDEF_H */
+#endif /* ITL_CLASSDEF_H */
