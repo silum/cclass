@@ -22,7 +22,7 @@ by Jerry Jongerius / January 1995
 http://www.duckware.com/bugfreec/
 
 %package devel
-Summary:        C private class methodology
+Summary:        %{name} development package
 Group:          Development/Libraries
 Requires:       %{name} = %{version}
 
@@ -50,14 +50,14 @@ ldconfig
 %files
 %defattr(-,root,root,-)
 %_libdir/*.so*
-%doc AUTHORS BUILD ChangeLog NEWS README
+%doc AUTHORS BUILD COPYING ChangeLog INSTALL NEWS README
 
 %files devel
 %defattr(-,root,root,-)
 %_libdir/*.a
 %_libdir/*.la
 %_includedir
-%doc AUTHORS BUILD ChangeLog NEWS README
+%doc AUTHORS BUILD COPYING ChangeLog INSTALL NEWS README
 %doc doc/html
 
 %changelog
