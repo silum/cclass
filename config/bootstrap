@@ -35,16 +35,6 @@ autoheader
 automake --add-missing
 autoconf
 
-# configure sub directories first
-if test -f $cfgaux/subdir ; then
-    prog=`basename $0`
-    for subdir in `cat $cfgaux/subdir` ; do
-        cd $subdir
-        ./config/$prog
-        cd -
-    done
-fi
-
 # if config.status does not exist
 if test ! -f config.status ; then
     # run configure, if it is executable
