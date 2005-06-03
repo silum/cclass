@@ -70,7 +70,7 @@ EXTRA_DIST = \
     $(AUX_DIR)/clobber \
     $(AUX_DIR)/subdir \
     BUILD \
-    cclass.spec
+    $(PACKAGE_NAME).spec
 
 AUX_DIST = \
     $(AUX_DIR)/compile \
