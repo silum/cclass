@@ -63,24 +63,22 @@ maintainer-clean-local:
 distrpm: distcheck
 	rpmbuild -ta $(distdir).tar.gz
 
-AUX_DIR = @ac_aux_dir@
-
 EXTRA_DIST = \
-    $(AUX_DIR)/bootstrap \
-    $(AUX_DIR)/clobber \
-    $(AUX_DIR)/subdir \
+    $(ac_aux_dir)/autogen.sh \
+    $(ac_aux_dir)/bootstrap \
+    $(ac_aux_dir)/clobber \
     BUILD \
     $(PACKAGE_NAME).spec
 
 AUX_DIST = \
-    $(AUX_DIR)/compile \
-    $(AUX_DIR)/config.guess \
-    $(AUX_DIR)/config.sub \
-    $(AUX_DIR)/depcomp \
-    $(AUX_DIR)/install-sh \
-    $(AUX_DIR)/ltmain.sh \
-    $(AUX_DIR)/missing \
-    $(AUX_DIR)/mkinstalldirs
+    $(ac_aux_dir)/compile \
+    $(ac_aux_dir)/config.guess \
+    $(ac_aux_dir)/config.sub \
+    $(ac_aux_dir)/depcomp \
+    $(ac_aux_dir)/install-sh \
+    $(ac_aux_dir)/ltmain.sh \
+    $(ac_aux_dir)/missing \
+    $(ac_aux_dir)/mkinstalldirs
 
 DISTCLEANFILES = \
     stamp-h \
