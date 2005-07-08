@@ -1,5 +1,9 @@
  $Id$
 
+2005-07-08  Deneys S. Maartens  <dsm@tlabs.ac.za>
+
+    * cclass.m4: create m4 macro for autoconf: AM_LIB_CCLASS
+
 2005-01-25  Deneys S. Maartens  <dsm@tlabs.ac.za>
 
     * Initial version

@@ -18,7 +18,6 @@
 
 AM_CFLAGS = -std=gnu99 -Wall -Wextra -Werror
 
-
 XFAIL_TESTS = \
     test_leak
 
@@ -26,8 +25,9 @@ TESTS = \
     test \
     $(XFAIL_TESTS)
 
-noinst_PROGRAMS = \
-    $(TESTS)
+aclocaldir=$(datadir)/aclocal
+dist_aclocal_DATA = \
+    cclass.m4
 
 include_HEADERS = \
     classdef.h \
@@ -37,18 +37,22 @@ include_HEADERS = \
 lib_LTLIBRARIES = \
     libcclass.la
 
-libcclass_la_LDFLAGS = -version-info @LIBVERSION@
+noinst_PROGRAMS = \
+    $(TESTS)
+
+libcclass_la_LDFLAGS = \
+    -version-info $(LIBVERSION)
 libcclass_la_SOURCES = \
     xassert.c \
     xmalloc.c
 
 test_LDADD = \
-    $(top_builddir)/libcclass.la
+    libcclass.la
 test_SOURCES = \
     test.c
 
 test_leak_LDADD = \
-    $(top_builddir)/libcclass.la
+    libcclass.la
 test_leak_SOURCES = \
     test_leak.c
 
