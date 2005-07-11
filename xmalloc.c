@@ -64,6 +64,7 @@ static prefix *heap = 0;
 #endif /* DOXYGEN_SKIP */
 
 /* Local prototypes */
+
 /**
  * @brief Add heap object to linked list)
  *
