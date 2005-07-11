@@ -239,25 +239,7 @@ xtestptr(void *mem)
 	return ((mem) && (!((long) mem & (ALIGNMENT - 1))));
 }
 
-static void
-render(prefix *p, char *buffer)
-{
-	if (p->mem == &p[1]) {
-		sprintf(buffer, "%8p ", p);
-		if (p->file) {
-			sprintf(buffer + strlen(buffer), "%12s %4ld ",
-				p->file, p->line);
-		}
-		if (p->class) {
-			sprintf(buffer + strlen(buffer), "%s",
-				p->class->name);
-		}
-	} else {
-		strcpy(buffer, "(bad)");
-	}
-}
-
-static void
+void
 list_insert(prefix *p)
 {
 	/* add before current head of list */
@@ -278,7 +260,7 @@ list_insert(prefix *p)
 	heap = p;
 }
 
-static void
+void
 list_remove(prefix *p)
 {
 	/* Remove from doubly linked list */
@@ -291,7 +273,7 @@ list_remove(prefix *p)
 	}
 }
 
-static bool
+bool
 list_verify(void *mem)
 {
 	bool ok = false;
@@ -308,5 +290,23 @@ list_verify(void *mem)
 	}
 
 	return (ok);
+}
+
+void
+render(prefix *p, char *buffer)
+{
+	if (p->mem == &p[1]) {
+		sprintf(buffer, "%8p ", p);
+		if (p->file) {
+			sprintf(buffer + strlen(buffer), "%12s %4ld ",
+				p->file, p->line);
+		}
+		if (p->class) {
+			sprintf(buffer + strlen(buffer), "%s",
+				p->class->name);
+		}
+	} else {
+		strcpy(buffer, "(bad)");
+	}
 }
 
