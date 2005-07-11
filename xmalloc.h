@@ -34,6 +34,27 @@ __BEGIN_DECLS
      xnew(size, 0, __FILE__, __LINE__)
 
 /**
+ * @brief Prototype for user defined xassert report function
+ *
+ * @param file  name of file where assertion failed
+ * @param line  line number where assertion failed
+ */
+void
+report_xassert(const char *file,
+	       int line);
+
+/**
+ * @brief Memory Free
+ *
+ * Free a block of memory that was previously allocated through xnew().
+ *
+ * @param p  heap pointer to free or 0
+ *
+ * @return 0
+ */
+void *xfree(void *p);
+
+/**
  * @brief Memory new
  *
  * Allocate a new block of memory from the heap.
@@ -50,17 +71,6 @@ xnew(size_t size,
      classdesc *desc,
      const char *file,
      int line);
-
-/**
- * @brief Memory Free
- *
- * Free a block of memory that was previously allocated through xnew().
- *
- * @param p  heap pointer to free or 0
- *
- * @return 0
- */
-void *xfree(void *p);
 
 /**
  * @brief Memory realloc
@@ -95,15 +105,6 @@ void *xstrdup(const char *s,
 	      int line);
 
 /**
- * @brief Walk heap
- *
- * Display a symbolic dump of the heap by walking the heap and
- * displaying all objects in the heap.
- */
-int
-xwalkheap();
-
-/**
  * @brief Does pointer point into the heap?
  *
  * Does the given memory pointer point anywhere into the heap.
@@ -116,14 +117,13 @@ bool
 xtestptr(void *p);
 
 /**
- * @brief Prototype for user defined xassert report function
+ * @brief Walk heap
  *
- * @param file  name of file where assertion failed
- * @param line  line number where assertion failed
+ * Display a symbolic dump of the heap by walking the heap and
+ * displaying all objects in the heap.
  */
-void
-report_xassert(const char *file,
-	       int line);
+int
+xwalkheap();
 
 __END_DECLS
 
