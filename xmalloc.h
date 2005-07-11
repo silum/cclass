@@ -36,7 +36,7 @@ __BEGIN_DECLS
 /**
  * @brief Memory new
  *
- * Allocate a new block of memory from the heap
+ * Allocate a new block of memory from the heap.
  *
  * @param size  size of object to allocate
  * @param desc  class descriptor for object (or 0)
@@ -54,7 +54,7 @@ xnew(size_t size,
 /**
  * @brief Memory Free
  *
- * Free a block of memory that was previously allocated through xnew()
+ * Free a block of memory that was previously allocated through xnew().
  *
  * @param p  heap pointer to free or 0
  *
@@ -65,7 +65,7 @@ void *xfree(void *p);
 /**
  * @brief Memory realloc
  *
- * Reallocate a block of memory
+ * Reallocate a block of memory.
  *
  * @param p  heap object to reallocate or 0
  * @param size  new size of the object
@@ -82,7 +82,7 @@ void *xrealloc(void *p,
 /**
  * @brief Memory string dup
  *
- * Helper function for the xstrdup() macro
+ * Helper function for the xstrdup() macro.
  *
  * @param s  string to duplicate (or 0)
  * @param file  filename where string is being duplicated
@@ -106,7 +106,7 @@ xwalkheap();
 /**
  * @brief Does pointer point into the heap?
  *
- * Does the given memory pointer point anywhere into the heap
+ * Does the given memory pointer point anywhere into the heap.
  *
  * @param p  heap pointer to check
  *

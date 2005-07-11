@@ -49,7 +49,7 @@ extern bool XASSERT_FAILURE;
  * @brief User defined assertion failure report
  *
  * Print an error message refering to the file name and line number
- * where the error has occured
+ * where the error has occured.
  *
  * @param file  name of file where error occured
  * @param line  line number where error occured
@@ -61,7 +61,7 @@ void report_xassert(const char *file,
  * @brief Test framework function
  *
  * Call the user function and tests for assertion failures and memory
- * allocation on return
+ * allocation on return.
  *
  * @param user_func  user defined function
  *

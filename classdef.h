@@ -151,7 +151,7 @@ typedef struct classdesc_tag {
  * @brief Verify an object
  *
  * Verify that the object (variable name) matches the object type, as
- * declared to the heap manager
+ * declared to the heap manager.
  *
  * For example:
  * @code
@@ -168,7 +168,7 @@ typedef struct classdesc_tag {
  * @brief Verify an object, allows NULL too
  *
  * Verify that the object (variable name) matches the object type, as
- * declared to the heap manager, or that the object is NULL
+ * declared to the heap manager, or that the object is NULL.
  *
  * For example:
  * @code
