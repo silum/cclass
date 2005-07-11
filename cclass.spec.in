@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 %post
 ldconfig
 
+%postun
+ldconfig
+
 %files
 %defattr(-,root,root,-)
 %doc AUTHORS BUILD COPYING ChangeLog INSTALL NEWS README
@@ -62,6 +65,9 @@ ldconfig
 %_includedir
 
 %changelog
+* Mon Jul 11 2005  Deneys S. Maartens  <dsm@tlabs.ac.za>
+- add cclass.m4 file
+
 * Tue May 31 2005  Deneys S. Maartens  <dsm@tlabs.ac.za>
 - create spec file
 
