@@ -104,7 +104,7 @@ int
 xwalkheap();
 
 /**
- * @brief Does pointer point into the heap)
+ * @brief Does pointer point into the heap?
  *
  * Does the given memory pointer point anywhere into the heap
  *
