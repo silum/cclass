@@ -25,7 +25,8 @@ TESTS = \
     test \
     $(XFAIL_TESTS)
 
-aclocaldir=$(datadir)/aclocal
+aclocaldir = \
+    $(datadir)/aclocal
 dist_aclocal_DATA = \
     cclass.m4
 
