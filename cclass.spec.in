@@ -49,16 +49,17 @@ ldconfig
 
 %files
 %defattr(-,root,root,-)
-%_libdir/*.so*
 %doc AUTHORS BUILD COPYING ChangeLog INSTALL NEWS README
+%_libdir/*.so*
 
 %files devel
 %defattr(-,root,root,-)
-%_libdir/*.a
-%_libdir/*.la
-%_includedir
 %doc AUTHORS BUILD COPYING ChangeLog INSTALL NEWS README
 %doc doc/html
+%_libdir/*.a
+%_libdir/*.la
+%_datadir/aclocal
+%_includedir
 
 %changelog
 * Tue May 31 2005  Deneys S. Maartens  <dsm@tlabs.ac.za>
