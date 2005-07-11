@@ -107,139 +107,6 @@ static bool list_verify(void *p);
  */
 static void render(prefix *p, char *buffer);
 
-void *
-xnew(size_t size,
-     classdesc *class,
-     const char *file,
-     int line)
-{
-	prefix *p;
-	size = DOALIGN(size);
-	p = (prefix *) malloc(sizeof(prefix) + size + sizeof(postfix));
-	if (p) {
-		list_insert(p);
-		p->postfix = (postfix *) ((char *) (p + 1) + size);
-		p->postfix->prefix = p;
-		p->file = file;
-		p->line = line;
-		p->mem = p + 1;
-		p->class = class;
-		memset(p->mem, 0, size);
-	} else {
-		asserterror();	/* Report out of memory error */
-	}
-
-	return (p ? p + 1 : 0);
-}
-
-void *
-xfree(void *mem)
-{
-	if (list_verify(mem)) {
-		prefix *p = (prefix *) mem - 1;
-		size_t size = (char *) (p->postfix + 1) - (char *) p;
-		list_remove(p);
-		memset(p, 0, size);
-		free(p);
-	}
-
-	return 0;
-}
-
-void *
-xrealloc(void *old,
-	 size_t size,
-	 const char *file,
-	 int line)
-{
-	void *new = 0;
-
-	/* Try to realloc */
-	if (old) {
-		if (list_verify(old)) {
-			prefix *p = (prefix *) old - 1;
-			prefix *new_p;
-
-			/* Try to reallocate block */
-			list_remove(p);
-			memset(p->postfix, 0, sizeof(postfix));
-			size = DOALIGN(size);
-			new_p = (prefix *) realloc(p, sizeof(prefix) +
-						   size + sizeof(postfix));
-
-			/* Add new (or failed old) back in */
-			p = (new_p ? new_p : p);
-			list_insert(p);
-			p->postfix = (postfix *) ((char *) (p + 1) + size);
-			p->postfix->prefix = p;
-			p->mem = p + 1;
-
-			/* Finish */
-			new = (new_p ? &new_p[1] : 0);
-			if (!new) {
-				/* Report out of memory error */
-				asserterror();
-			}
-		}
-	}
-
-	/* Else try new allocation */
-	else {
-		new = xnew(size, 0, file, line);
-	}
-
-	/* Return address to object */
-	return new;
-}
-
-void *
-xstrdup(const char *s,
-	const char *file,
-	int line)
-{
-	void *ret = 0;
-
-	if (s) {
-		size_t size = (size_t) (strlen(s) + 1);
-		ret = xnew(size, 0, file, line);
-		if (ret) {
-			memcpy(ret, s, size);
-		}
-	}
-	return ret;
-}
-
-int
-xwalkheap()
-{
-	int alloced = 0;
-
-	if (heap) {
-		prefix *p = heap;
-		while (list_verify(&p[1])) {
-			char buffer[100];
-			render(p, buffer);
-
-			++alloced;
-
-			/* print out buffer */
-			printf("%s: %s\n", __func__, buffer);
-			p = p->next;
-			if (p == heap) {
-				break;
-			}
-		}
-	}
-
-	return alloced;
-}
-
-bool
-xtestptr(void *mem)
-{
-	return ((mem) && (!((long) mem & (ALIGNMENT - 1))));
-}
-
 void
 list_insert(prefix *p)
 {
@@ -309,5 +176,138 @@ render(prefix *p, char *buffer)
 	} else {
 		strcpy(buffer, "(bad)");
 	}
+}
+
+void *
+xfree(void *mem)
+{
+	if (list_verify(mem)) {
+		prefix *p = (prefix *) mem - 1;
+		size_t size = (char *) (p->postfix + 1) - (char *) p;
+		list_remove(p);
+		memset(p, 0, size);
+		free(p);
+	}
+
+	return 0;
+}
+
+void *
+xnew(size_t size,
+     classdesc *class,
+     const char *file,
+     int line)
+{
+	prefix *p;
+	size = DOALIGN(size);
+	p = (prefix *) malloc(sizeof(prefix) + size + sizeof(postfix));
+	if (p) {
+		list_insert(p);
+		p->postfix = (postfix *) ((char *) (p + 1) + size);
+		p->postfix->prefix = p;
+		p->file = file;
+		p->line = line;
+		p->mem = p + 1;
+		p->class = class;
+		memset(p->mem, 0, size);
+	} else {
+		asserterror();	/* Report out of memory error */
+	}
+
+	return (p ? p + 1 : 0);
+}
+
+void *
+xrealloc(void *old,
+	 size_t size,
+	 const char *file,
+	 int line)
+{
+	void *new = 0;
+
+	/* Try to realloc */
+	if (old) {
+		if (list_verify(old)) {
+			prefix *p = (prefix *) old - 1;
+			prefix *new_p;
+
+			/* Try to reallocate block */
+			list_remove(p);
+			memset(p->postfix, 0, sizeof(postfix));
+			size = DOALIGN(size);
+			new_p = (prefix *) realloc(p, sizeof(prefix) +
+						   size + sizeof(postfix));
+
+			/* Add new (or failed old) back in */
+			p = (new_p ? new_p : p);
+			list_insert(p);
+			p->postfix = (postfix *) ((char *) (p + 1) + size);
+			p->postfix->prefix = p;
+			p->mem = p + 1;
+
+			/* Finish */
+			new = (new_p ? &new_p[1] : 0);
+			if (!new) {
+				/* Report out of memory error */
+				asserterror();
+			}
+		}
+	}
+
+	/* Else try new allocation */
+	else {
+		new = xnew(size, 0, file, line);
+	}
+
+	/* Return address to object */
+	return new;
+}
+
+void *
+xstrdup(const char *s,
+	const char *file,
+	int line)
+{
+	void *ret = 0;
+
+	if (s) {
+		size_t size = (size_t) (strlen(s) + 1);
+		ret = xnew(size, 0, file, line);
+		if (ret) {
+			memcpy(ret, s, size);
+		}
+	}
+	return ret;
+}
+
+bool
+xtestptr(void *mem)
+{
+	return ((mem) && (!((long) mem & (ALIGNMENT - 1))));
+}
+
+int
+xwalkheap()
+{
+	int alloced = 0;
+
+	if (heap) {
+		prefix *p = heap;
+		while (list_verify(&p[1])) {
+			char buffer[100];
+			render(p, buffer);
+
+			++alloced;
+
+			/* print out buffer */
+			printf("%s: %s\n", __func__, buffer);
+			p = p->next;
+			if (p == heap) {
+				break;
+			}
+		}
+	}
+
+	return alloced;
 }
 

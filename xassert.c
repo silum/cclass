@@ -32,21 +32,6 @@ USE_XASSERT
 bool XASSERT_INTERACTIVE = true;
 bool XASSERT_FAILURE = false;
 
-void
-report_xassert(const char *file_name, int line)
-{
-	printf(" ** xassert: %s-%d ", file_name, line);
-	XASSERT_FAILURE = true;
-	if (XASSERT_INTERACTIVE) {
-		printf("(Press Enter) ");
-		while ('\n' != getchar()) {
-			/* empty */
-		}
-	} else {
-		printf("\n");
-	}
-}
-
 int
 debug_test(void (*test_func)())
 {
@@ -62,5 +47,20 @@ debug_test(void (*test_func)())
 
 	printf("\nAll tests passed\n");
 	return EXIT_SUCCESS;
+}
+
+void
+report_xassert(const char *file_name, int line)
+{
+	printf(" ** xassert: %s-%d ", file_name, line);
+	XASSERT_FAILURE = true;
+	if (XASSERT_INTERACTIVE) {
+		printf("(Press Enter) ");
+		while ('\n' != getchar()) {
+			/* empty */
+		}
+	} else {
+		printf("\n");
+	}
 }
 

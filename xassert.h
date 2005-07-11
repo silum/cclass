@@ -22,7 +22,7 @@
 #ifndef ITL_DEBUG_XASSERT_H
 #define ITL_DEBUG_XASSERT_H
 
-#include <stdbool.h> /*  bool  */
+#include <stdbool.h> /* bool */
 #include <sys/cdefs.h>
 
 __BEGIN_DECLS
@@ -36,26 +36,14 @@ __BEGIN_DECLS
 #define XASSERT(expr) xassert(expr){}
 
 /**
+ * @brief Set to true when an assertion failure has occured
+ */
+extern bool XASSERT_FAILURE;
+/**
  * @brief Flag to enable or disable pausing for user input on assertion
  * failure report
  */
 extern bool XASSERT_INTERACTIVE;
-/**
- * @brief Set to true when an assertion failure has occured
- */
-extern bool XASSERT_FAILURE;
-
-/**
- * @brief User defined assertion failure report
- *
- * Print an error message refering to the file name and line number
- * where the error has occured.
- *
- * @param file  name of file where error occured
- * @param line  line number where error occured
- */
-void report_xassert(const char *file,
-		    int line);
 
 /**
  * @brief Test framework function
@@ -68,6 +56,18 @@ void report_xassert(const char *file,
  * @return EXIT_SUCCESS if no errors occurred, else EXIT_FAILURE
  */
 int debug_test(void (*user_func)());
+
+/**
+ * @brief User defined assertion failure report
+ *
+ * Print an error message refering to the file name and line number
+ * where the error has occured.
+ *
+ * @param file  name of file where error occured
+ * @param line  line number where error occured
+ */
+void report_xassert(const char *file,
+		    int line);
 
 __END_DECLS
 
