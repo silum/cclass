@@ -27,7 +27,7 @@ rm -rf autom4te.cache
 test -d .deps && rmdir .deps
 
 # clobber backup files
-find -name *~ | xargs rm -f
+find -name '*~' | xargs rm -f
 
 # clobber symbolic links
 find -type l | xargs rm -f
