@@ -18,44 +18,48 @@
 
 AM_CFLAGS = -std=gnu99 -Wall -Wextra -Werror
 
-XFAIL_TESTS = \
-    test_leak
+DIST_SUBDIRS = \
+    cclass \
+    tests
 
 TESTS = \
-    test \
+    tests/cclass \
     $(XFAIL_TESTS)
+
+XFAIL_TESTS = \
+    tests/cclass_leak
 
 aclocaldir = \
     $(datadir)/aclocal
 dist_aclocal_DATA = \
     cclass.m4
 
-include_HEADERS = \
-    classdef.h \
-    xassert.h \
-    xmalloc.h
+nobase_include_HEADERS = \
+    cclass/classdef.h \
+    cclass/xassert.h \
+    cclass/xmalloc.h
 
 lib_LTLIBRARIES = \
-    libcclass.la
+    cclass/libcclass.la
 
 noinst_PROGRAMS = \
     $(TESTS)
 
-libcclass_la_LDFLAGS = \
+cclass_libcclass_la_LDFLAGS = \
     -version-info $(LIBVERSION)
-libcclass_la_SOURCES = \
-    xassert.c \
-    xmalloc.c
+cclass_libcclass_la_SOURCES = \
+    cclass/xassert.c \
+    cclass/xmalloc.c
 
-test_LDADD = \
-    libcclass.la
-test_SOURCES = \
-    test.c
+tests_cclass_LDADD = \
+    cclass/libcclass.la
+tests_cclass_SOURCES = \
+    tests/cclass.c
 
-test_leak_LDADD = \
-    libcclass.la
-test_leak_SOURCES = \
-    test_leak.c
+tests_cclass_leak_LDADD = \
+    cclass/libcclass.la
+tests_cclass_leak_SOURCES = \
+    tests/cclass_leak.c
 
 .PHONY: doc
 doc: doc/doxy/doxygen.conf

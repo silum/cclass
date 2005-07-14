@@ -75,9 +75,7 @@ FILE_PATTERNS          = *.c \
 RECURSIVE              = YES
 EXCLUDE                = 
 EXCLUDE_SYMLINKS       = NO
-EXCLUDE_PATTERNS       = config.h \
-                         test.c \
-                         test_*
+EXCLUDE_PATTERNS       = config.h
 EXAMPLE_PATH           = 
 EXAMPLE_PATTERNS       = *
 EXAMPLE_RECURSIVE      = NO
@@ -183,7 +181,6 @@ PREDEFINED             = __BEGIN_DECLS= \
                          "CLASS(object, handle)"="struct handle" \
                          DOXYGEN_SKIP \
                          __END_DECLS=
-#                         USE_XASSERT=
 EXPAND_AS_DEFINED      = 
 SKIP_FUNCTION_MACROS   = YES
 #---------------------------------------------------------------------------

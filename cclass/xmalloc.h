@@ -22,8 +22,8 @@
 #ifndef ITL_XMALLOC_H
 #define ITL_XMALLOC_H
 
+#include <cclass/classdef.h>
 #include <stdbool.h> /* bool */
-#include <classdef.h>
 
 __BEGIN_DECLS
 
