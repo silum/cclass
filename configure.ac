@@ -32,7 +32,7 @@ AC_CONFIG_SRCDIR([cclass/classdef.h])
 AC_CONFIG_AUX_DIR([config])
 AC_SUBST([ac_aux_dir])
 
-AM_INIT_AUTOMAKE([1.8])
+AM_INIT_AUTOMAKE([subdir-objects])
 
 # create a config.h file (Automake will add -DHAVE_CONFIG_H)
 AM_CONFIG_HEADER([config.h])
