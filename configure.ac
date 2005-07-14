@@ -1,4 +1,4 @@
-# configure.in -- Process this file with autoconf to produce a configure script.
+# configure.ac -- Process this file with autoconf to produce a configure script.
 # $Id$
 # Copyright (C) 2005 Deneys S. Maartens <dsm@tlabs.ac.za>
 #
@@ -61,7 +61,7 @@ dnl --------------------------------------------------------------------
 dnl Checks for library functions.
 
 dnl --------------------------------------------------------------------
-dnl Output
+dnl Create output files.
 
 AC_CONFIG_FILES([
     cclass.spec
