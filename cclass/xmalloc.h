@@ -19,8 +19,8 @@
  * @file
  * @brief Memory allocation function declarations
  */
-#ifndef ITL_XMALLOC_H
-#define ITL_XMALLOC_H
+#ifndef ITL_CCLASS_XMALLOC_H
+#define ITL_CCLASS_XMALLOC_H
 
 #include <cclass/classdef.h>
 #include <stdbool.h> /* bool */
@@ -127,4 +127,4 @@ xwalkheap();
 
 __END_DECLS
 
-#endif /* ITL_XMALLOC_H */
+#endif /* ITL_CCLASS_XMALLOC_H */

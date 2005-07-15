@@ -19,8 +19,8 @@
  * @file
  * @brief report_xassert() function and debug framework declaration
  */
-#ifndef ITL_DEBUG_XASSERT_H
-#define ITL_DEBUG_XASSERT_H
+#ifndef ITL_CCLASS_XASSERT_H
+#define ITL_CCLASS_XASSERT_H
 
 #include <stdbool.h> /* bool */
 #include <sys/cdefs.h>
@@ -71,4 +71,4 @@ void report_xassert(const char *file,
 
 __END_DECLS
 
-#endif /* ITL_DEBUG_XASSERT */
+#endif /* ITL_CCLASS_XASSERT */

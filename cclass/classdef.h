@@ -29,8 +29,8 @@
  * @file
  * @brief C-Class declaration
  */
-#ifndef ITL_CLASSDEF_H
-#define ITL_CLASSDEF_H
+#ifndef ITL_CCLASS_CLASSDEF_H
+#define ITL_CCLASS_CLASSDEF_H
 
 #include <sys/types.h> /* size_t */
 
@@ -257,4 +257,4 @@ typedef struct classdesc_tag {
 
 __END_DECLS
 
-#endif /* ITL_CLASSDEF_H */
+#endif /* ITL_CCLASS_CLASSDEF_H */
