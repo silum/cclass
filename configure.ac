@@ -28,7 +28,7 @@ AC_SUBST([LIBVERSION])
 
 AC_REVISION([$Rev$])
 
-AC_CONFIG_SRCDIR([cclass/classdef.h])
+AC_CONFIG_SRCDIR([Makefile.am])
 AC_CONFIG_AUX_DIR([config])
 AC_SUBST([ac_aux_dir])
 
@@ -51,7 +51,7 @@ dnl --------------------------------------------------------------------
 dnl Checks for header files.
 
 AC_HEADER_STDC
-AC_CHECK_HEADERS([sys/cdefs.h stdbool.h],,
+AC_CHECK_HEADERS([sys/cdefs.h stdbool.h], [],
     AC_MSG_ERROR([required header file missing]))
 
 dnl --------------------------------------------------------------------
