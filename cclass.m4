@@ -76,16 +76,16 @@ if test "x$with_cclass" != "xno"; then
     fi
 
     # Check for headers.
-    AC_CHECK_HEADERS([classdef.h xassert.h xmalloc.h],,
+    AC_CHECK_HEADERS([cclass/classdef.h cclass/xassert.h cclass/xmalloc.h], [],
         with_cclass="no"
     )
 
     if test "x$with_cclass" != "xno"; then
         CCLASS_LIBS="-lcclass"
-        ifelse([$1], , :, [$1])
+        ifelse([$1], [], :, [$1])
     else
         CCLASS_LIBS=
-        ifelse([$2], , :, [$2])
+        ifelse([$2], [], :, [$2])
     fi
 fi])
 
