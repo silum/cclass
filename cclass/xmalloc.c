@@ -24,7 +24,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "classdef.h"
 #include "xmalloc.h"
 
 USE_XASSERT
