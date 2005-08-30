@@ -210,7 +210,8 @@ xnew(size_t size,
 		p->class = class;
 		memset(p->mem, 0, size);
 	} else {
-		asserterror();	/* Report out of memory error */
+		/* Report out of memory error */
+		asserterror();
 	}
 
 	return (p ? p + 1 : 0);
