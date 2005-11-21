@@ -39,6 +39,9 @@ nobase_include_HEADERS = \
     cclass/xassert.h \
     cclass/xmalloc.h
 
+noinst_HEADERS = \
+    tests/dummy.h
+
 lib_LTLIBRARIES = \
     cclass/libcclass.la
 
