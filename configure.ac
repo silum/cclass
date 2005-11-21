@@ -16,7 +16,7 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-AC_INIT([cclass], [0.3], [dsm@tlabs.ac.za])
+AC_INIT([cclass], [0.4], [dsm@tlabs.ac.za])
 
 dnl CURRENT:REVISION:AGE
 dnl - library source changed -> inc REVISION

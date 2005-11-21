@@ -17,7 +17,7 @@
  */
 /**
  * @file
- * @brief report_xassert() function and debug framework declaration
+ * @brief xassert_report() function and debug framework declaration
  */
 #ifndef ITL_CCLASS_XASSERT_H
 #define ITL_CCLASS_XASSERT_H
@@ -55,7 +55,18 @@ extern bool XASSERT_INTERACTIVE;
  *
  * @return EXIT_SUCCESS if no errors occurred, else EXIT_FAILURE
  */
-int debug_test(void (*user_func)());
+int xassert_test(void (*user_func)());
+
+/**
+ * @brief Fail with given error message
+ *
+ * This function does not return.
+ *
+ * @param fmt  printf-like format of error message
+ * @param ...  printf-like arguments
+ */
+void xassert_fail(const char *fmt,
+		  ...);
 
 /**
  * @brief User defined assertion failure report
@@ -66,7 +77,7 @@ int debug_test(void (*user_func)());
  * @param file  name of file where error occured
  * @param line  line number where error occured
  */
-void report_xassert(const char *file,
+void xassert_report(const char *file,
 		    int line);
 
 __END_DECLS

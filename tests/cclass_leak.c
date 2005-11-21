@@ -41,6 +41,6 @@ test_func()
 int
 main()
 {
-	return debug_test(test_func);
+	return xassert_test(test_func);
 }
 

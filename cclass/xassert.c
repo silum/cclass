@@ -19,9 +19,11 @@
  * @file
  * @brief report_xassert() function and debug framework definition
  */
-#include <stdlib.h>
-#include <stdio.h>
+#include <err.h>
 #include <errno.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "xassert.h"
@@ -33,7 +35,7 @@ bool XASSERT_INTERACTIVE = true;
 bool XASSERT_FAILURE = false;
 
 int
-debug_test(void (*test_func)())
+xassert_test(void (*test_func)())
 {
 	XASSERT_FAILURE = false;
 	XASSERT_INTERACTIVE = false;
@@ -50,7 +52,18 @@ debug_test(void (*test_func)())
 }
 
 void
-report_xassert(const char *file_name, int line)
+xassert_fail(const char *fmt,
+	     ...)
+{
+	va_list args;
+	va_start(args, fmt);
+	verrx(EXIT_FAILURE, fmt, args);
+	va_end(args);
+}
+
+void
+xassert_report(const char *file_name,
+	       int line)
 {
 	printf(" ** xassert: %s-%d ", file_name, line);
 	XASSERT_FAILURE = true;

@@ -31,7 +31,7 @@ test_func()
 {
 	char *p = xmalloc(1);
 	*p = 0;
-	p = xfree(p);
+	p = xdelete(p);
 }
 
 /**
@@ -42,6 +42,6 @@ test_func()
 int
 main()
 {
-	return debug_test(test_func);
+	return xassert_test(test_func);
 }
 

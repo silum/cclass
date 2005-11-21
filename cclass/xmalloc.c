@@ -178,7 +178,7 @@ render(prefix *p, char *buffer)
 }
 
 void *
-xfree(void *mem)
+xdelete(void *mem)
 {
 	if (list_verify(mem)) {
 		prefix *p = (prefix *) mem - 1;

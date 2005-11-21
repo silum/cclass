@@ -1,5 +1,11 @@
  $Id$
 
+2005-11-21  Deneys S. Maartens  <dsm@tlabs.ac.za>
+
+    * xassert.h: rename debug_test() to xassert_test, add xassert_fail()
+    * xmalloc.h: rename xfree() to xdelete() because of name clash with
+      ncurses xfree() function
+
 2005-07-08  Deneys S. Maartens  <dsm@tlabs.ac.za>
 
     * cclass.m4: create m4 macro for autoconf: AM_LIB_CCLASS

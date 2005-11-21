@@ -78,14 +78,14 @@ __BEGIN_DECLS
  * By calling this macro at the top of a source file, the _do_xassert
  * macro declared.  \c xassert() uses the _do_xassert macro to print a
  * run-time error message and by calling the user defined
- * report_xassert() function with the file name and line number where
+ * xassert_report() function with the file name and line number where
  * the assertion failure occured.
  */
 #ifndef DOXYGEN_SKIP
 # define USE_XASSERT                  \
   static char SRCFILE[] = __FILE__; \
   static void _do_xassert(int line) { \
-    report_xassert(SRCFILE, line);    \
+    xassert_report(SRCFILE, line);    \
   }
 #define asserterror() _do_xassert(__LINE__)
 #define xassert(exp) if (!(exp)) { asserterror(); } else

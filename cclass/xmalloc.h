@@ -40,7 +40,7 @@ __BEGIN_DECLS
  * @param line  line number where assertion failed
  */
 void
-report_xassert(const char *file,
+xassert_report(const char *file,
 	       int line);
 
 /**
@@ -52,7 +52,7 @@ report_xassert(const char *file,
  *
  * @return 0
  */
-void *xfree(void *p);
+void *xdelete(void *p);
 
 /**
  * @brief Memory new
