@@ -70,8 +70,8 @@ if test "x$with_cclass" != "xno"; then
     fi
 
     # Check for library.
-    AC_CHECK_LIB([cclass], [xfree])
-    if test "$ac_cv_lib_cclass_xfree" != "yes" ; then
+    AC_CHECK_LIB([cclass], [xdelete])
+    if test "$ac_cv_lib_cclass_xdelete" != "yes" ; then
         with_cclass="no"
     fi
 
