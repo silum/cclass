@@ -17,40 +17,54 @@
  */
 /**
  * @file
- * @brief Test basic functionality of xmalloc and xassert
+ * @brief Dummy object declaration
  */
-#include <stdio.h>
-#include <stdlib.h>
-#include <cclass/xmalloc.h>
-#include <cclass/xassert.h>
+#ifndef ITL_DUMMY_H
+#define ITL_DUMMY_H
 
-#include "dummy.h"
+#include "cclass/classdef.h"
+
+__BEGIN_DECLS
 
 /**
- * @brief Allocate and free memory
+ * @brief dummy object handle
  */
-void
-test_func();
+NEWHANDLE(dummy_t);
 
 /**
- * @brief Execute test_func()
+ * @brief Create dummy object
  *
- * No warnigns/errors are expected.
+ * @param size  number of bytes to allocate
+ *
+ * @return newly created dummy object
+ */
+dummy_t
+dummy_create(int size);
+
+/**
+ * @brief Destroy dummy object
+ *
+ * @param dummy  handle of object to be destroyed
+ *
+ * @return 0
+ */
+dummy_t
+dummy_destroy(dummy_t dummy);
+
+/**
+ * @brief Access allocated memory
+ *
+ * @param dummy  object handle
+ * @param val  value to set memory to
+ *
+ * @return
+ * - 0 on invalid_handle, of failure, and
+ * - 1 on success
  */
 int
-main();
+dummy_set(dummy_t dummy,
+	  int val);
 
-int main()
-{
-	exit(xassert_test(test_func));
-}
+__END_DECLS
 
-void
-test_func()
-{
-	dummy_t dummy;
-	dummy = dummy_create(10);
-	dummy_set(dummy, 0);
-	dummy = dummy_destroy(dummy);
-}
-
+#endif /* ITL_DUMMY_H */

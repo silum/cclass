@@ -224,7 +224,7 @@ typedef struct classdesc_tag {
  * @param size  number of bytes to allocate
  */
 #define NEWSTRING(dest, size) \
-  (dest = xnew((size_t)(size),NULL,SRCFILE,__LINE__))
+  (dest = xnew((size_t)(size),0,SRCFILE,__LINE__))
 
 /**
  * @brief Duplicate a string
@@ -243,7 +243,7 @@ typedef struct classdesc_tag {
  */
 #define NEWARRAY(array, size) \
   (array = xnew((size_t)(sizeof(*(array))*(size)), \
-  NULL,SRCFILE,__LINE__))
+  0,SRCFILE,__LINE__))
 
 /**
  * @brief Resize an array so contain N (size) array elements

@@ -54,12 +54,14 @@ cclass_libcclass_la_SOURCES = \
 tests_cclass_LDADD = \
     cclass/libcclass.la
 tests_cclass_SOURCES = \
-    tests/cclass.c
+    tests/cclass.c \
+    tests/dummy.c
 
 tests_cclass_leak_LDADD = \
     cclass/libcclass.la
 tests_cclass_leak_SOURCES = \
-    tests/cclass_leak.c
+    tests/cclass_leak.c \
+    tests/dummy.c
 
 .PHONY: doc
 doc: doc/doxy/doxygen.conf

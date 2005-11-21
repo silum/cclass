@@ -17,40 +17,65 @@
  */
 /**
  * @file
- * @brief Test basic functionality of xmalloc and xassert
+ * @brief Dummy object definition
  */
-#include <stdio.h>
-#include <stdlib.h>
-#include <cclass/xmalloc.h>
-#include <cclass/xassert.h>
+#include "dummy.h" /* class implemented */
+#include "cclass/xassert.h"
+#include "cclass/xmalloc.h"
 
-#include "dummy.h"
+USE_XASSERT
 
 /**
- * @brief Allocate and free memory
+ * @brief dummy object
  */
-void
-test_func();
+CLASS(dummy, dummy_t) {
+	char *data;
+	int size;
+};
 
-/**
- * @brief Execute test_func()
- *
- * No warnigns/errors are expected.
- */
-int
-main();
-
-int main()
+dummy_t
+dummy_create(int size)
 {
-	exit(xassert_test(test_func));
+	if (size < 0) {
+		return 0;
+	}
+
+	dummy_t dummy = 0;
+	NEWOBJ(dummy);
+
+	if (dummy) {
+		dummy->size = size;
+		NEWSTRING(dummy->data, size);
+	}
+
+	return dummy;
 }
 
-void
-test_func()
+dummy_t
+dummy_destroy(dummy_t dummy)
 {
-	dummy_t dummy;
-	dummy = dummy_create(10);
-	dummy_set(dummy, 0);
-	dummy = dummy_destroy(dummy);
+	VERIFYZ(dummy) {
+		xdelete(dummy->data);
+		FREEOBJ(dummy);
+	}
+
+	return 0;
+}
+
+int
+dummy_set(dummy_t dummy,
+	  int value)
+{
+	(void) value;
+	int status = 0;
+
+	VERIFY(dummy) {
+		for (int i = 0; i < dummy->size; i++) {
+			dummy->data[i] = value;
+		}
+		status = 1;
+	}
+
+	return status;
 }
 

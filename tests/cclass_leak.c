@@ -23,24 +23,33 @@
 #include <cclass/xmalloc.h>
 #include <cclass/xassert.h>
 
+#include "dummy.h"
+
 /**
  * @brief Allocate memory but do not free it
  */
 void
-test_func()
-{
-	char *p = xmalloc(1);
-	*p = 0;
-}
+test_func();
 
 /**
  * @brief Execute test_func()
  *
- * A walkheap assertion failure in test_func is expected.
+ * A walkheap assertion failure in test_func() is expected.
  */
 int
-main()
+main();
+
+int main()
 {
-	return xassert_test(test_func);
+	exit(xassert_test(test_func));
+}
+
+void
+test_func()
+{
+	dummy_t dummy;
+	dummy = dummy_create(10);
+	dummy_set(dummy, 0);
+	/* induce memory leak by omiting dummy_destroy() */
 }
 
