@@ -215,7 +215,7 @@ typedef struct classdesc_tag {
  * FREEOBJ(obj);
  * @endcode
  */
-#define FREEOBJ(obj) (obj = xfree(obj))
+#define FREEOBJ(obj) (obj = xdelete(obj))
 
 /**
  * @brief Allocates memory for a string of size - 1 bytes
