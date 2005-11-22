@@ -76,4 +76,3 @@ xassert_report(const char *file_name,
 		printf("\n");
 	}
 }
-

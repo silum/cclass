@@ -78,4 +78,3 @@ dummy_set(dummy_t dummy,
 
 	return status;
 }
-

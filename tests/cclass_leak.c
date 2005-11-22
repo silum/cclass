@@ -52,4 +52,3 @@ test_func()
 	dummy_set(dummy, 0);
 	/* induce memory leak by omiting dummy_destroy() */
 }
-

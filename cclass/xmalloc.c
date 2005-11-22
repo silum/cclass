@@ -310,4 +310,3 @@ xwalkheap()
 
 	return alloced;
 }
-

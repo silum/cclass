@@ -53,4 +53,3 @@ test_func()
 	dummy_set(dummy, 0);
 	dummy = dummy_destroy(dummy);
 }
-
