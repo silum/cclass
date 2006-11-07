@@ -24,14 +24,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "xmalloc.h"
+#include "classdef.h"
+#include "malloc.h"
 
 USE_XASSERT
 
 #ifndef DOXYGEN_SKIP
 #define ALIGNMENT (sizeof(int))
 #define DOALIGN(num) (((num)+ALIGNMENT-1)&~(ALIGNMENT-1))
-compiler_assert(ISPOWER2(ALIGNMENT));
+cclass_compiler_assert(ISPOWER2(ALIGNMENT));
 #endif
 
 /* Prefix structure before every heap object */
@@ -55,7 +56,7 @@ typedef struct postfix_tag {
 #endif /* DOXYGEN_SKIP */
 
 /* Verify alignment of prefix structure */
-compiler_assert(!(sizeof(prefix) % ALIGNMENT));
+cclass_compiler_assert(!(sizeof(prefix) % ALIGNMENT));
 
 /* Points to first object in linked list of heap objects */
 #ifndef DOXYGEN_SKIP
@@ -146,10 +147,10 @@ list_verify(void *mem)
 	bool ok = false;
 
 	if (mem) {
-		xassert(xtestptr(mem)) {
+		XASSERT(cclass_test_pointer(mem)) {
 			prefix *p = (prefix *) mem - 1;
-			xassert(p->mem == mem) {
-				xassert(p->postfix->prefix == p) {
+			XASSERT(p->mem == mem) {
+				XASSERT(p->postfix->prefix == p) {
 					ok = true;
 				}
 			}
@@ -178,7 +179,7 @@ render(prefix *p, char *buffer)
 }
 
 void *
-xdelete(void *mem)
+cclass_free(void *mem)
 {
 	if (list_verify(mem)) {
 		prefix *p = (prefix *) mem - 1;
@@ -192,10 +193,10 @@ xdelete(void *mem)
 }
 
 void *
-xnew(size_t size,
-     classdesc *class,
-     const char *file,
-     int line)
+cclass_malloc(size_t size,
+	      classdesc *class,
+	      const char *file,
+	      int line)
 {
 	prefix *p;
 	size = DOALIGN(size);
@@ -218,10 +219,10 @@ xnew(size_t size,
 }
 
 void *
-xrealloc(void *old,
-	 size_t size,
-	 const char *file,
-	 int line)
+cclass_realloc(void *old,
+	       size_t size,
+	       const char *file,
+	       int line)
 {
 	void *new = 0;
 
@@ -256,7 +257,7 @@ xrealloc(void *old,
 
 	/* Else try new allocation */
 	else {
-		new = xnew(size, 0, file, line);
+		new = cclass_malloc(size, 0, file, line);
 	}
 
 	/* Return address to object */
@@ -264,15 +265,15 @@ xrealloc(void *old,
 }
 
 void *
-xstrdup(const char *s,
-	const char *file,
-	int line)
+cclass_strdup(const char *s,
+	      const char *file,
+	      int line)
 {
 	void *ret = 0;
 
 	if (s) {
 		size_t size = (size_t) (strlen(s) + 1);
-		ret = xnew(size, 0, file, line);
+		ret = cclass_malloc(size, 0, file, line);
 		if (ret) {
 			memcpy(ret, s, size);
 		}
@@ -281,13 +282,13 @@ xstrdup(const char *s,
 }
 
 bool
-xtestptr(void *mem)
+cclass_test_pointer(void *mem)
 {
 	return ((mem) && (!((long) mem & (ALIGNMENT - 1))));
 }
 
 int
-xwalkheap()
+cclass_walk_heap()
 {
 	int alloced = 0;
 

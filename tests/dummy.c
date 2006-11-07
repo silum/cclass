@@ -20,8 +20,6 @@
  * @brief Dummy object definition
  */
 #include "dummy.h" /* class implemented */
-#include "cclass/xassert.h"
-#include "cclass/xmalloc.h"
 
 USE_XASSERT
 
@@ -29,8 +27,8 @@ USE_XASSERT
  * @brief dummy object
  */
 CLASS(dummy, dummy_t) {
-	char *data;
-	int size;
+	char *data; /**< character array */
+	int size; /**< size of array */
 };
 
 dummy_t
@@ -55,7 +53,7 @@ dummy_t
 dummy_destroy(dummy_t dummy)
 {
 	VERIFYZ(dummy) {
-		xdelete(dummy->data);
+		cclass_free(dummy->data);
 		FREEOBJ(dummy);
 	}
 

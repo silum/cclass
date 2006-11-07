@@ -17,10 +17,10 @@
  */
 /**
  * @file
- * @brief xassert_report() function and debug framework declaration
+ * @brief cclass_assert_report() function and debug framework declaration
  */
-#ifndef ITL_CCLASS_XASSERT_H
-#define ITL_CCLASS_XASSERT_H
+#ifndef ITL_CCLASS_ASSERT_H
+#define ITL_CCLASS_ASSERT_H
 
 #include <stdbool.h> /* bool */
 #include <sys/cdefs.h>
@@ -28,12 +28,47 @@
 __BEGIN_DECLS
 
 /**
- * @brief Macro to avoid compiler warning.
+ * @def USE_XASSERT
+ * @brief Enables cclass_assert support in a source file
  *
- * Macro to silence "empty body in an else-statement" warning, when
- * using xassert in the form \c xassert(expr);
+ * By calling this macro at the top of a source file, the
+ * _do_cclass_assert macro is declared.  \c cclass_assert() uses the
+ * _do_cclass_assert macro to print a run-time error message and by
+ * calling the user defined cclass_assert_report() function with the
+ * file name and line number where the assertion failure occured.
  */
-#define XASSERT(expr) xassert(expr){}
+#ifndef DOXYGEN_SKIP
+#define USE_XASSERT                  \
+  static char SRCFILE[] = __FILE__; \
+  static void _do_cclass_assert(int line) { \
+    cclass_assert_report(SRCFILE, line);    \
+  }
+#define asserterror() _do_cclass_assert(__LINE__)
+#define cclass_assert(exp) if (!(exp)) { asserterror(); } else
+#else
+#define USE_XASSERT
+#endif /* DOXYGEN_SKIP */
+
+/**
+ * @def XASSERT
+ * @brief cclass_assert() utility macro
+ */
+#define XASSERT(expr) cclass_assert(expr)
+
+/**
+ * @def cclass_compiler_assert(exp)
+ * @brief Assert during compile-time (not run-time)
+ *
+ * Will produce a compiler error of assertion does not hold.
+ *
+ * @param exp  expression to be asserted
+ */
+#ifndef DOXYGEN_SKIP
+#define cclass_compiler_assert(exp) \
+  extern char _cclass_compiler_assert[(exp)?1:-1]
+#else
+#define cclass_compiler_assert(exp)
+#endif /* DOXYGEN_SKIP */
 
 /**
  * @brief Set to true when an assertion failure has occured
@@ -55,7 +90,7 @@ extern bool XASSERT_INTERACTIVE;
  *
  * @return EXIT_SUCCESS if no errors occurred, else EXIT_FAILURE
  */
-int xassert_test(void (*user_func)());
+int cclass_assert_test(void (*user_func)());
 
 /**
  * @brief Fail with given error message
@@ -65,8 +100,9 @@ int xassert_test(void (*user_func)());
  * @param fmt  printf-like format of error message
  * @param ...  printf-like arguments
  */
-void xassert_fail(const char *fmt,
-		  ...);
+void
+cclass_assert_fail(const char *fmt,
+		   ...);
 
 /**
  * @brief User defined assertion failure report
@@ -77,9 +113,10 @@ void xassert_fail(const char *fmt,
  * @param file  name of file where error occured
  * @param line  line number where error occured
  */
-void xassert_report(const char *file,
-		    int line);
+void
+cclass_assert_report(const char *file,
+		     int line);
 
 __END_DECLS
 
-#endif /* ITL_CCLASS_XASSERT */
+#endif /* ITL_CCLASS_ASSERT */

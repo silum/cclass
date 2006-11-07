@@ -1,92 +1,90 @@
 dnl $Id$
-dnl Copyright (C) 2005 Deneys S. Maartens <dsm@tlabs.ac.za>
+dnl Copyright (C) 2006 Deneys S. Maartens <dsm@tlabs.ac.za>
 
 dnl AM_LIB_CCLASS([ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]])
-dnl Test for CCLASS, and define CCLASS_LIBS
+dnl Test for CCLASS, and define CCLASS_CPPFLAGS and CCLASS_LIBS
 dnl
-AC_DEFUN([AM_LIB_CCLASS],
-[AC_ARG_WITH([cclass],
-    [AC_HELP_STRING([--with-cclass=DIR],
-        [cclass base directory, or:])],
-    [cclass="$withval"])
+AC_DEFUN([AM_LIB_CCLASS], [
+  AC_ARG_WITH([cclass],
+    [AC_HELP_STRING([--with-cclass@<:@=PATH@:>@],
+      [prefix where cclass is installed [default=auto]])])
 
-AC_ARG_WITH([cclass-include],
-    [AC_HELP_STRING([--with-cclass-include=DIR],
-        [cclass headers directory])],
-    [cclass_include="$withval"])
+  AC_ARG_WITH([cclass-include],
+    [AC_HELP_STRING([--with-cclass-include=PATH],
+      [cclass include directory])])
 
-# Disable cclass support.
-if test "x$with_cclass_include" = "xno"; then
+  AC_ARG_WITH([cclass-lib],
+    [AC_HELP_STRING([--with-cclass-lib=PATH],
+      [cclass library directory])])
+
+  if test "x$with_cclass_include" = "xno"; then
     with_cclass="no"
-fi
+  fi
 
-AC_ARG_WITH([cclass-lib],
-    [AC_HELP_STRING([--with-cclass-lib=DIR],
-        [cclass library directory])],
-    [cclass_lib="$withval"])
-
-# Disable cclass support.
-if test "x$with_cclass_lib" = "xno"; then
+  if test "x$with_cclass_lib" = "xno"; then
     with_cclass="no"
-fi
+  fi
 
-AC_SUBST(CCLASS_LIBS)
-if test "x$with_cclass" != "xno"; then
-    if test "x$cclass" = "xyes"; then
-        cclass=
+  if test "x$with_cclass" != "xno"; then
+    if test "x$with_cclass" = "xyes"; then
+      with_cclass=
     fi
 
-    # Base directory takes precendence over lib and include.
-    if test "x$cclass" != "x" ; then
-#        AC_MSG_NOTICE([using cclass base directory $cclass])
+    # Prefix takes precendence over include and library directories.
+    if test "x$with_cclass" != "x" ; then
+      if test "x$with_cclass_include" != "x"; then
+        with_cclass_include="$with_cclass/include"
+      fi
 
-        if test "x$cclass_include" = "x"; then
-            cclass_include=$cclass/include
-        fi
-
-        if test "x$cclass_lib" = "x"; then
-            cclass_lib=$cclass/lib
-        fi
+      if test "x$with_cclass_lib" != "x"; then
+        with_cclass_lib="$with_cclass/lib"
+      fi
     fi
 
-    # set include directory
-    if test "x$cclass_include" != "x" ; then
-        if test -d "$cclass_include"; then
-            CPPFLAGS="$CPPFLAGS -I$cclass_include"
-#            if test "x$cclass" = "x"; then
-#                AC_MSG_NOTICE([using cclass include directory $cclass_include])
-#            fi
-        fi
+    # Set include directory.
+    if test "x$with_cclass_include" != "x" ; then
+      CCLASS_CPPFLAGS="-I$with_cclass_include"
     fi
 
-    # set library directory
-    if test "x$cclass_lib" != "x" ; then
-        if test -d "$cclass_lib"; then
-            LDFLAGS="$LDFLAGS -L$cclass_lib"
-#            if test "x$cclass" = "x"; then
-#                AC_MSG_NOTICE([using cclass library directory $cclass_lib])
-#            fi
-        fi
+    # Set library directory.
+    if test "x$with_cclass_lib" != "x" ; then
+      CCLASS_LIBS="-L$with_cclass_lib -lcclass"
+    else
+      CCLASS_LIBS="-lcclass"
     fi
 
     # Check for library.
-    AC_CHECK_LIB([cclass], [xdelete])
-    if test "$ac_cv_lib_cclass_xdelete" != "yes" ; then
-        with_cclass="no"
-    fi
+    ac_save_LIBS="$LIBS"
+    LIBS="$CCLASS_LIBS $LIBS"
+    AC_CHECK_LIB(
+      [cclass],
+      [cclass_malloc],
+      [],
+      [with_cclass="no"]
+    )
+    LIBS="$ac_save_LIBS"
 
     # Check for headers.
-    AC_CHECK_HEADERS([cclass/classdef.h cclass/xassert.h cclass/xmalloc.h], [],
-        with_cclass="no"
+    ac_save_CPPFLAGS="$CPPFLAGS"
+    CPPFLAGS="$CCLASS_CPPFLAGS $CPPFLAGS"
+    AC_CHECK_HEADERS(
+      [cclass/assert.h cclass/classdef.h cclass/malloc.h],
+      [],
+      [with_cclass="no"]
     )
+    CPPFLAGS="$ac_save_CPPFLAGS"
+  fi
 
-    if test "x$with_cclass" != "xno"; then
-        CCLASS_LIBS="-lcclass"
-        ifelse([$1], [], :, [$1])
-    else
-        CCLASS_LIBS=
-        ifelse([$2], [], :, [$2])
-    fi
-fi])
+  AC_SUBST(CCLASS_CPPFLAGS)
+  AC_SUBST(CCLASS_LIBS)
+
+  if test "x$with_cclass" != "xno"; then
+    ifelse([$1], [], [:], [$1])
+  else
+    AC_MSG_NOTICE([disabling cclass support])
+    ifelse([$2], [], [:], [$2])
+  fi
+])
 
 dnl -fin-
+dnl vim:sts=2:sw=2:

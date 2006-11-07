@@ -23,11 +23,7 @@ DIST_SUBDIRS = \
     tests
 
 TESTS = \
-    tests/cclass \
-    $(XFAIL_TESTS)
-
-XFAIL_TESTS = \
-    tests/cclass_leak
+    tests/cclass
 
 aclocaldir = \
     $(datadir)/aclocal
@@ -36,8 +32,8 @@ dist_aclocal_DATA = \
 
 nobase_include_HEADERS = \
     cclass/classdef.h \
-    cclass/xassert.h \
-    cclass/xmalloc.h
+    cclass/assert.h \
+    cclass/malloc.h
 
 noinst_HEADERS = \
     tests/dummy.h
@@ -51,19 +47,14 @@ noinst_PROGRAMS = \
 cclass_libcclass_la_LDFLAGS = \
     -version-info $(LIBVERSION)
 cclass_libcclass_la_SOURCES = \
-    cclass/xassert.c \
-    cclass/xmalloc.c
+    cclass/assert.c \
+    cclass/malloc.c
 
 tests_cclass_LDADD = \
-    cclass/libcclass.la
+    cclass/libcclass.la \
+    $(CHECK_LIBS)
 tests_cclass_SOURCES = \
     tests/cclass.c \
-    tests/dummy.c
-
-tests_cclass_leak_LDADD = \
-    cclass/libcclass.la
-tests_cclass_leak_SOURCES = \
-    tests/cclass_leak.c \
     tests/dummy.c
 
 .PHONY: doc

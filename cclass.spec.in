@@ -11,7 +11,7 @@ URL:            http://medsvr.tlabs.ac.za/wsvn/cclass
 Source0:        %{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  doxygen
+BuildRequires:  check, doxygen
 
 %description
 An object based framework for C.
@@ -67,10 +67,13 @@ ldconfig
 %_includedir
 
 %changelog
-* Mon Jul 11 2005  Deneys S. Maartens  <dsm@tlabs.ac.za>
+* Fri Nov 03 2006  Deneys S. Maartens  <dsm@tlabs.ac.za>  0.6-1
+- add check dependency
+
+* Mon Jul 11 2005  Deneys S. Maartens  <dsm@tlabs.ac.za>  0.5-1
 - add cclass.m4 file
 
-* Tue May 31 2005  Deneys S. Maartens  <dsm@tlabs.ac.za>
+* Tue May 31 2005  Deneys S. Maartens  <dsm@tlabs.ac.za>  0.3-1
 - create spec file
 
 # -fin-

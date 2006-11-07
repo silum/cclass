@@ -76,7 +76,7 @@ RECURSIVE              = YES
 EXCLUDE                = 
 EXCLUDE_SYMLINKS       = NO
 EXCLUDE_PATTERNS       = config.h
-EXAMPLE_PATH           = 
+EXAMPLE_PATH           = # @abs_top_srcdir@/examples
 EXAMPLE_PATTERNS       = *
 EXAMPLE_RECURSIVE      = NO
 IMAGE_PATH             = 
@@ -180,7 +180,9 @@ INCLUDE_FILE_PATTERNS  =
 PREDEFINED             = __BEGIN_DECLS= \
                          "CLASS(object, handle)"="struct handle" \
                          DOXYGEN_SKIP \
-                         __END_DECLS=
+                         __END_DECLS= \
+                         END_TEST= \
+                         "START_TEST(func)"="static void func(void)"
 EXPAND_AS_DEFINED      = 
 SKIP_FUNCTION_MACROS   = YES
 #---------------------------------------------------------------------------

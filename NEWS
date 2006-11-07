@@ -1,5 +1,17 @@
 $Id$
 
+Fri Nov 03 2006
+
+    The cclass interface has been changed significantly.  This is due to
+the use of badly chosen function names, when this library was initially
+written.  Function names sych as xmalloc() and xfree() are used in
+various pieces of software, and relies on the fact that no libraries
+present these functions for use too.
+
+Problems with name classhes have been encountered at least twice, with
+the use of xfree and xmalloc.  All the x* function names have been
+renamed to cclass_*.
+
 Tue Jan 25 2005
 
     First version of cclass library released.

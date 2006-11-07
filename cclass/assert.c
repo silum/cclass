@@ -17,7 +17,7 @@
  */
 /**
  * @file
- * @brief report_xassert() function and debug framework definition
+ * @brief cclass_assert_report() function and debug framework definition
  */
 #include <err.h>
 #include <errno.h>
@@ -25,35 +25,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
-#include "xassert.h"
-#include "xmalloc.h"
+#include "assert.h"
+#include "malloc.h"
 
+#ifndef DOXYGEN_SKIP
 USE_XASSERT
+#endif
 
 bool XASSERT_INTERACTIVE = true;
 bool XASSERT_FAILURE = false;
 
 int
-xassert_test(void (*test_func)())
+cclass_assert_test(void (*test_func)())
 {
 	XASSERT_FAILURE = false;
 	XASSERT_INTERACTIVE = false;
 
 	test_func();
 
-	XASSERT(xwalkheap() == 0);
+	XASSERT(cclass_walk_heap() == 0) {
+		/* empty */
+	}
 
-	if (XASSERT_FAILURE)
+	if (XASSERT_FAILURE) {
 		return EXIT_FAILURE;
+	}
 
-	printf("\nAll tests passed\n");
 	return EXIT_SUCCESS;
 }
 
 void
-xassert_fail(const char *fmt,
-	     ...)
+cclass_assert_fail(const char *fmt,
+		   ...)
 {
 	va_list args;
 	va_start(args, fmt);
@@ -62,15 +67,15 @@ xassert_fail(const char *fmt,
 }
 
 void
-xassert_report(const char *file_name,
-	       int line)
+cclass_assert_report(const char *file_name,
+		     int line)
 {
-	printf(" ** xassert: %s-%d ", file_name, line);
+	printf(" ** cclass_assert: %s-%d ", file_name, line);
 	XASSERT_FAILURE = true;
 	if (XASSERT_INTERACTIVE) {
-		printf("(Press Enter) ");
+		printf("(Press ENTER) ");
 		while ('\n' != getchar()) {
-			/* empty */
+			usleep(250000);
 		}
 	} else {
 		printf("\n");

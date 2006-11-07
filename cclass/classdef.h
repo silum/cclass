@@ -33,74 +33,10 @@
 #define ITL_CCLASS_CLASSDEF_H
 
 #include <sys/types.h> /* size_t */
+#include <cclass/assert.h>
+#include <cclass/malloc.h>
 
 __BEGIN_DECLS
-
-/**
- * @brief Assert during compile-time (not run-time)
- *
- * Will produce a compiler error of assertion does not hold.
- *
- * @param exp  expression to be asserted
- */
-#ifndef DOXYGEN_SKIP
-#define compiler_assert(exp) extern char _compiler_assert[(exp)?1:-1]
-#else
-#define compiler_assert(exp)
-#endif /* DOXYGEN_SKIP */
-
-/**
- * @brief Absolute value utility definition
- */
-#ifndef DOXYGEN_SKIP
-#define ABS(x) (((x)>0)?(x):-(x))
-#else
-#define ABS(x)
-#endif /* DOXYGEN_SKIP */
-
-/**
- * @brief Test if a number is a power of two
- */
-#ifndef DOXYGEN_SKIP
-#define ISPOWER2(x) (!((x)&((x)-1)))
-#else
-#define ISPOWER2(x)
-#endif /* DOXYGEN_SKIP */
-
-/**
- * @brief Number of static elements in an array
- */
-#define NUMSTATICELS(array) (sizeof(array)/sizeof(*array))
-
-/**
- * @brief Enables xassert support in a source file
- *
- * By calling this macro at the top of a source file, the _do_xassert
- * macro declared.  \c xassert() uses the _do_xassert macro to print a
- * run-time error message and by calling the user defined
- * xassert_report() function with the file name and line number where
- * the assertion failure occured.
- */
-#ifndef DOXYGEN_SKIP
-# define USE_XASSERT                  \
-  static char SRCFILE[] = __FILE__; \
-  static void _do_xassert(int line) { \
-    xassert_report(SRCFILE, line);    \
-  }
-#define asserterror() _do_xassert(__LINE__)
-#define xassert(exp) if (!(exp)) { asserterror(); } else
-#else
-# define USE_XASSERT
-#endif /* DOXYGEN_SKIP */
-
-/**
- * @brief Class descriptor
- */
-#ifndef DOXYGEN_SKIP
-typedef struct classdesc_tag {
-	char *name;
-} classdesc;
-#endif /* DOXYGEN_SKIP */
 
 /**
  * @brief Declare a new handle
@@ -119,8 +55,9 @@ typedef struct classdesc_tag {
 #define NEWHANDLE(handle) typedef struct tag_##handle *handle
 
 #ifndef DOXYGEN_SKIP
-/* class descriptor name from object name */
-#define _CD(obj) obj##_classdesc
+/* class descriptor name from object name utility macro */
+#define _CD(obj) \
+  obj##_classdesc
 #endif /* DOXYGEN_SKIP */
 
 /**
@@ -140,18 +77,22 @@ typedef struct classdesc_tag {
  */
 #ifndef DOXYGEN_SKIP
 #define CLASS(object,handle) \
-    static classdesc _CD(object)={#object}; \
-    struct tag_##handle
+  static classdesc _CD(object)={#object}; \
+  struct tag_##handle
 #else
-#define CLASS(object, handle) struct handle
+#define CLASS(object, handle) \
+  struct handle
 #endif
 
 /* object verification macros */
 /**
+ * @def VERIFY(obj)
  * @brief Verify an object
  *
  * Verify that the object (variable name) matches the object type, as
  * declared to the heap manager.
+ *
+ * @param obj  object to verify
  *
  * For example:
  * @code
@@ -162,13 +103,16 @@ typedef struct classdesc_tag {
  * }
  * @endcode
  */
-#define VERIFY(obj) xassert(_VERIFY(obj))
+#define VERIFY(obj) cclass_assert(_VERIFY(obj))
 
 /**
+ * @def VERIFYZ(obj)
  * @brief Verify an object, allows NULL too
  *
  * Verify that the object (variable name) matches the object type, as
  * declared to the heap manager, or that the object is NULL.
+ *
+ * @param obj  object to verify
  *
  * For example:
  * @code
@@ -186,74 +130,10 @@ typedef struct classdesc_tag {
 #define _S4 (sizeof(classdesc*))
 #define _S8 (sizeof(classdesc*)+sizeof(void *))
 #define _VERIFY(obj) \
-    ( xtestptr(obj) && \
-      (((void *)obj) == *(void **)((char *)obj-_S8)) \
-      && ((&_CD(obj)) == *(classdesc **)((char *)obj-_S4)) )
+  ( cclass_test_pointer(obj) && \
+    (((void *)obj) == *(void **)((char *)obj-_S8)) \
+    && ((&_CD(obj)) == *(classdesc **)((char *)obj-_S4)) )
 #endif /* DOXYGEN_SKIP */
-
-/**
- * @brief Allocate memory for an object
- *
- * @param obj  object to allocate
- *
- * For example:
- * @code
- * obj_t obj;
- * NEWOBJ(obj);
- * @endcode
- */
-#define NEWOBJ(obj) \
-  (obj = xnew(sizeof(*obj),&_CD(obj),SRCFILE,__LINE__))
-
-/**
- * @brief Free memory allocated memory for an object
- *
- * @param obj  object to free
- *
- * For example:
- * @code
- * FREEOBJ(obj);
- * @endcode
- */
-#define FREEOBJ(obj) (obj = xdelete(obj))
-
-/**
- * @brief Allocates memory for a string of size - 1 bytes
- *
- * @param dest  new string
- * @param size  number of bytes to allocate
- */
-#define NEWSTRING(dest, size) \
-  (dest = xnew((size_t)(size),0,SRCFILE,__LINE__))
-
-/**
- * @brief Duplicate a string
- *
- * @param dest  duplicated string
- * @param source  string to duplicate
- */
-#define STRDUP(dest, source) \
-  (dest = xstrdup(source,SRCFILE,__LINE__))
-
-/**
- * @brief Allocate memory to contain N (size) array elements
- *
- * @param array  new array
- * @param size  number of elements to allocate
- */
-#define NEWARRAY(array, size) \
-  (array = xnew((size_t)(sizeof(*(array))*(size)), \
-  0,SRCFILE,__LINE__))
-
-/**
- * @brief Resize an array so contain N (size) array elements
- *
- * @param array  resized array
- * @param size  number of elements
- */
-#define RESIZEARRAY(array, size) \
-  (array = xrealloc((array), \
-  (size_t)(sizeof(*(array))*(size)),SRCFILE,__LINE__))
 
 __END_DECLS
 

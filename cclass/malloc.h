@@ -19,29 +19,102 @@
  * @file
  * @brief Memory allocation function declarations
  */
-#ifndef ITL_CCLASS_XMALLOC_H
-#define ITL_CCLASS_XMALLOC_H
+#ifndef ITL_CCLASS_MALLOC_H
+#define ITL_CCLASS_MALLOC_H
 
-#include <cclass/classdef.h>
-#include <stdbool.h> /* bool */
+#include <cclass/assert.h> /* bool */
 
 __BEGIN_DECLS
 
 /**
- * @brief xmalloc utility macro
+ * @brief Free memory allocated memory for an object
+ *
+ * @param obj  object to free
+ *
+ * For example:
+ * @code
+ * FREEOBJ(obj);
+ * @endcode
  */
-#define xmalloc(size) \
-     xnew(size, 0, __FILE__, __LINE__)
+#define FREEOBJ(obj) (obj = cclass_free(obj))
 
 /**
- * @brief Prototype for user defined xassert report function
+ * @def ISPOWER(x)
+ * @brief Test if a number is a power of two
  *
- * @param file  name of file where assertion failed
- * @param line  line number where assertion failed
+ * @param x  number to check
  */
-void
-xassert_report(const char *file,
-	       int line);
+#ifndef DOXYGEN_SKIP
+#define ISPOWER2(x) (!((x)&((x)-1)))
+#else
+#define ISPOWER2(x)
+#endif /* DOXYGEN_SKIP */
+
+/**
+ * @brief MALLOC utility macro
+ */
+#define MALLOC(size) \
+     cclass_malloc(size, 0, __FILE__, __LINE__)
+
+/**
+ * @brief Allocate memory to contain N (size) array elements
+ *
+ * @param array  new array
+ * @param size  number of elements to allocate
+ */
+#define NEWARRAY(array, size) \
+  (array = cclass_malloc((size_t)(sizeof(*(array))*(size)), \
+  0,SRCFILE,__LINE__))
+
+/**
+ * @brief Allocate memory for an object
+ *
+ * @param obj  object to allocate
+ *
+ * For example:
+ * @code
+ * obj_t obj;
+ * NEWOBJ(obj);
+ * @endcode
+ */
+#define NEWOBJ(obj) \
+  (obj = cclass_malloc(sizeof(*obj),&_CD(obj),SRCFILE,__LINE__))
+
+/**
+ * @brief Allocates memory for a string of size - 1 bytes
+ *
+ * @param dest  new string
+ * @param size  number of bytes to allocate
+ */
+#define NEWSTRING(dest, size) \
+  (dest = cclass_malloc((size_t)(size),0,SRCFILE,__LINE__))
+
+/**
+ * @def NUMSTATICELS(array)
+ * @brief Number of static elements in an array
+ *
+ * @param array  array to check
+ */
+#define NUMSTATICELS(array) (sizeof(array)/sizeof(*array))
+
+/**
+ * @brief Resize an array so contain N (size) array elements
+ *
+ * @param array  resized array
+ * @param size  number of elements
+ */
+#define RESIZEARRAY(array, size) \
+  (array = cclass_realloc((array), \
+  (size_t)(sizeof(*(array))*(size)),SRCFILE,__LINE__))
+
+/**
+ * @brief Duplicate a string
+ *
+ * @param dest  duplicated string
+ * @param source  string to duplicate
+ */
+#define STRDUP(dest, source) \
+  (dest = cclass_strdup(source,SRCFILE,__LINE__))
 
 /**
  * @brief Memory Free
@@ -52,7 +125,16 @@ xassert_report(const char *file,
  *
  * @return 0
  */
-void *xdelete(void *p);
+void *cclass_free(void *p);
+
+/**
+ * @brief Class descriptor
+ */
+#ifndef DOXYGEN_SKIP
+typedef struct classdesc_tag {
+	char *name;
+} classdesc;
+#endif /* DOXYGEN_SKIP */
 
 /**
  * @brief Memory new
@@ -67,10 +149,10 @@ void *xdelete(void *p);
  * @return a pointer to the memory object or 0
  */
 void *
-xnew(size_t size,
-     classdesc *desc,
-     const char *file,
-     int line);
+cclass_malloc(size_t size,
+	      classdesc *desc,
+	      const char *file,
+	      int line);
 
 /**
  * @brief Memory realloc
@@ -84,15 +166,14 @@ xnew(size_t size,
  *
  * @return a pointer to the reallocated memory or 0
  */
-void *xrealloc(void *p,
+void *
+cclass_realloc(void *p,
 	       size_t size,
 	       const char *file,
 	       int line);
 
 /**
- * @brief Memory string dup
- *
- * Helper function for the xstrdup() macro.
+ * @brief Memory string duplicator
  *
  * @param s  string to duplicate (or 0)
  * @param file  filename where string is being duplicated
@@ -100,7 +181,8 @@ void *xrealloc(void *p,
  *
  * @return a pointer to the duplicated string or 0
  */
-void *xstrdup(const char *s,
+void *
+cclass_strdup(const char *s,
 	      const char *file,
 	      int line);
 
@@ -114,7 +196,7 @@ void *xstrdup(const char *s,
  * @return true if pointer points into the heap, or false if not
  */
 bool
-xtestptr(void *p);
+cclass_test_pointer(void *p);
 
 /**
  * @brief Walk heap
@@ -123,8 +205,8 @@ xtestptr(void *p);
  * displaying all objects in the heap.
  */
 int
-xwalkheap();
+cclass_walk_heap();
 
 __END_DECLS
 
-#endif /* ITL_CCLASS_XMALLOC_H */
+#endif /* ITL_CCLASS_MALLOC_H */

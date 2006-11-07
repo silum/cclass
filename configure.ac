@@ -16,14 +16,14 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-AC_INIT([cclass], [0.5], [dsm@tlabs.ac.za])
+AC_INIT([cclass], [0.6], [dsm@tlabs.ac.za])
 
 dnl CURRENT:REVISION:AGE
 dnl - library source changed -> inc REVISION
 dnl - interfaces added/removed/changed -> inc CURRENT, REVISION = 0
 dnl - interfaces added -> inc AGE
 dnl - interfaces removed -> AGE = 0
-LIBVERSION="0:0:0"
+LIBVERSION="1:0:0"
 AC_SUBST([LIBVERSION])
 
 AC_REVISION([$Rev$])
@@ -46,6 +46,8 @@ AM_PROG_CC_C_O
 
 dnl --------------------------------------------------------------------
 dnl Checks for libraries.
+
+AM_PATH_CHECK([], [], [AC_MSG_ERROR([libcheck required])])
 
 dnl --------------------------------------------------------------------
 dnl Checks for header files.
