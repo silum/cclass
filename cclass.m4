@@ -30,13 +30,13 @@ AC_DEFUN([AM_LIB_CCLASS], [
       with_cclass=
     fi
 
-    # Prefix takes precendence over include and library directories.
+    # Prefix does not take precendence over include and lib.
     if test "x$with_cclass" != "x" ; then
-      if test "x$with_cclass_include" != "x"; then
+      if test "x$with_cclass_include" = "x"; then
         with_cclass_include="$with_cclass/include"
       fi
 
-      if test "x$with_cclass_lib" != "x"; then
+      if test "x$with_cclass_lib" = "x"; then
         with_cclass_lib="$with_cclass/lib"
       fi
     fi
