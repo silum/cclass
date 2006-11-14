@@ -35,8 +35,6 @@ autoreconf \
     --force \
     --install \
     --symlink \
-    --verbose \
-    -I $cfgaux \
-    -I m4
+    --verbose
 
 # -fin-
