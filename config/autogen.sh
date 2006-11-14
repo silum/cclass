@@ -34,6 +34,7 @@ cfgaux=`basename $cfgaux`
 autoreconf \
     --force \
     --install \
+    --symlink \
     --verbose \
     -I $cfgaux \
     -I m4
