@@ -1,6 +1,5 @@
-# configure.ac -- Process this file with autoconf to produce a configure script.
 # $Id$
-# Copyright (C) 2005 Deneys S. Maartens <dsm@tlabs.ac.za>
+# Copyright (C) 2005, 2006  Deneys S. Maartens  <dsm@tlabs.ac.za>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+# Process this file with autoconf to produce a configure script.
 
 AC_INIT([cclass], [0.6], [dsm@tlabs.ac.za])
 
