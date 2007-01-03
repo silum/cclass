@@ -71,7 +71,6 @@ dist-rpm: distcheck
 
 EXTRA_DIST = \
     $(ac_aux_dir)/autogen.sh \
-    $(ac_aux_dir)/bootstrap \
     $(ac_aux_dir)/clobber \
     BUILD \
     $(PACKAGE_NAME).spec
