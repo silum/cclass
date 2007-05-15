@@ -32,7 +32,6 @@
 #ifndef ITL_CCLASS_CLASSDEF_H
 #define ITL_CCLASS_CLASSDEF_H
 
-#include <sys/types.h> /* size_t */
 #include <cclass/assert.h>
 #include <cclass/malloc.h>
 

@@ -297,11 +297,9 @@ cclass_walk_heap()
 		while (list_verify(&p[1])) {
 			char buffer[100];
 			render(p, buffer);
-
-			++alloced;
-
-			/* print out buffer */
 			printf("%s: %s\n", __func__, buffer);
+
+			alloced++;
 			p = p->next;
 			if (p == heap) {
 				break;

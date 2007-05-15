@@ -35,9 +35,8 @@ __BEGIN_DECLS
  * _do_cclass_assert macro is declared.  \c cclass_assert() uses the
  * _do_cclass_assert macro to print a run-time error message and by
  * calling the user defined cclass_assert_report() function with the
- * file name and line number where the assertion failure occured.
+ * file name and line number where the assertion failure occurred.
  */
-#ifndef DOXYGEN_SKIP
 #define USE_XASSERT                  \
   static char SRCFILE[] = __FILE__; \
   static void _do_cclass_assert(int line) { \
@@ -45,9 +44,6 @@ __BEGIN_DECLS
   }
 #define asserterror() _do_cclass_assert(__LINE__)
 #define cclass_assert(exp) if (!(exp)) { asserterror(); } else
-#else
-#define USE_XASSERT
-#endif /* DOXYGEN_SKIP */
 
 /**
  * @def XASSERT
@@ -63,12 +59,8 @@ __BEGIN_DECLS
  *
  * @param exp  expression to be asserted
  */
-#ifndef DOXYGEN_SKIP
 #define cclass_compiler_assert(exp) \
   extern char _cclass_compiler_assert[(exp)?1:-1]
-#else
-#define cclass_compiler_assert(exp)
-#endif /* DOXYGEN_SKIP */
 
 /**
  * @brief Set to true when an assertion failure has occured
