@@ -48,7 +48,7 @@ alloc_nofree(void)
 	dummy_t dummy;
 	dummy = dummy_create(10);
 	dummy_set(dummy, 0);
-	/* induce memory leak by omiting dummy_destroy() */
+	/* induce memory leak by omitting dummy_destroy() */
 }
 
 /**
@@ -65,7 +65,6 @@ END_TEST
  */
 START_TEST(test_alloc_nofree)
 {
-	printf(" -- cclass_assert error expected:\n");
 	fail_unless(EXIT_FAILURE == cclass_assert_test(alloc_nofree));
 }
 END_TEST
@@ -92,7 +91,7 @@ cclass_suite(void)
 /**
  * @brief cclass test program
  *
- * No warnigns/errors are expected.
+ * No warnings/errors are expected.
  *
  * @return:
  * - EXIT_SUCCESS if all tests succeeded
