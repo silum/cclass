@@ -1,7 +1,8 @@
-# $Id$
-# Copyright (C) 2004, 2005, 2006, 2007  Deneys S. Maartens  <dsm@tlabs.ac.za>
+## $Id$
+## Copyright (C) 2004, 2005, 2006, 2007 Deneys S. Maartens
+## <dsm@tlabs.ac.za>
 
-# Process this file with automake to produce Makefile.in.
+## Process this file with automake to produce Makefile.in.
 
 DIST_SUBDIRS =
 
@@ -11,4 +12,4 @@ all check clean doc:
 MAINTAINERCLEANFILES = \
     Makefile.in
 
-# -fin-
+## -fin-
