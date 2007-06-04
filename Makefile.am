@@ -47,7 +47,7 @@ noinst_HEADERS = \
 lib_LTLIBRARIES = \
     cclass/libcclass.la
 
-noinst_PROGRAMS = \
+check_PROGRAMS = \
     $(TESTS)
 
 cclass_libcclass_la_LDFLAGS = \
@@ -61,7 +61,8 @@ tests_cclass_LDADD = \
     $(CHECK_LIBS)
 tests_cclass_SOURCES = \
     tests/cclass.c \
-    tests/dummy.c
+    tests/dummy.c \
+    tests/verbose-argp.c
 
 .PHONY: doc
 doc: doc/doxy/doxygen.conf
@@ -98,6 +99,8 @@ MAINTAINERCLEANFILES = \
     aclocal.m4 \
     config.h.in \
     configure \
+    COPYING \
+    INSTALL \
     Makefile.in \
     $(AUX_DIST)
 

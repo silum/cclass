@@ -23,7 +23,42 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "config.h"
 #include "dummy.h"
+#include "redirect.h" /* redirect_dev_null() */
+#include "verbose-argp.h" /* verbose,verbose_argp */
+
+/**
+ * @def PROGRAM_NAME
+ * @brief program name
+ */
+#define PROGRAM_NAME "cclass"
+/**
+ * @def PROGRAM_DOC
+ * @brief program documentation
+ */
+#define PROGRAM_DOC  PROGRAM_NAME " test program"
+
+/** program version */
+static const char *argp_program_version =
+PROGRAM_NAME " (" PACKAGE_NAME ") " PACKAGE_VERSION;
+
+/** bug report address */
+static const char *argp_program_bug_address = PACKAGE_BUGREPORT;
+
+/** argp children */
+static const struct argp_child argp_children[] = {
+	{
+		.argp = &verbose_argp,
+	},
+	ARGP_CHILD_END
+};
+
+/** our argp parser */
+static struct argp argp = {
+	.doc = PROGRAM_DOC,
+	.children = argp_children,
+};
 
 /**
  * @brief Allocate and free memory
@@ -58,10 +93,10 @@ static
 void
 setup(void)
 {
-	freopen("/dev/null", "a+", stderr);
-	freopen("/dev/null", "a+", stdout);
-
-	XASSERT_INTERACTIVE = false;
+	if (!verbose) {
+		redirect_dev_null(stderr);
+		redirect_dev_null(stdout);
+	}
 }
 
 /**
@@ -107,13 +142,21 @@ cclass_suite(void)
  *
  * No warnings/errors are expected.
  *
+ * @param argc  number of arguments
+ * @param argv  argument vector
+ *
  * @return:
  * - EXIT_SUCCESS if all tests succeeded
  * - EXIT_FAILURE if any test fails
  */
 int
-main(void)
+main(int argc,
+     char *argv[])
 {
+	XASSERT_INTERACTIVE = false;
+
+	argp_parse(&argp, argc, argv, 0, 0, 0);
+
 	int nf;
 	Suite *s = cclass_suite();
 	SRunner *sr = srunner_create(s);
