@@ -1,0 +1,1 @@
+../aux/m4/check.m4

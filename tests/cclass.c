@@ -52,6 +52,19 @@ alloc_nofree(void)
 }
 
 /**
+ * @brief Setup function for test suite
+ */
+static
+void
+setup(void)
+{
+	freopen("/dev/null", "a+", stderr);
+	freopen("/dev/null", "a+", stdout);
+
+	XASSERT_INTERACTIVE = false;
+}
+
+/**
  * @brief Test alloc_free()
  */
 START_TEST(test_alloc_free)
@@ -84,6 +97,7 @@ cclass_suite(void)
 	suite_add_tcase(s, tc_core);
 	tcase_add_test(tc_core, test_alloc_free);
 	tcase_add_test(tc_core, test_alloc_nofree);
+	tcase_add_checked_fixture(tc_core, setup, NULL);
 
 	return s;
 }
