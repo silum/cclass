@@ -1,5 +1,5 @@
 # $Id$
-# Copyright (C) 2005, 2006  Deneys S. Maartens  <dsm@tlabs.ac.za>
+# Copyright (C) 2005, 2006 Deneys S. Maartens <dsm@tlabs.ac.za>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
