@@ -75,6 +75,15 @@ maintainer-clean-local:
 dist-rpm: distcheck
 	rpmbuild -ta $(distdir).tar.gz
 
+ChangeLog:
+	cd $(srcdir) ; \
+    svn log -v --xml \
+        | aux/bin/svn2log.py \
+            --only-date \
+            --output $(top_builddir)/$@ \
+            --prefix='/(branches/[^/]+|trunk)' \
+            --users=aux/users
+
 EXTRA_DIST = \
     $(ac_aux_dir)/autogen.sh \
     $(ac_aux_dir)/clobber \
@@ -97,6 +106,7 @@ DISTCLEANFILES = \
 
 MAINTAINERCLEANFILES = \
     aclocal.m4 \
+    ChangeLog \
     config.h.in \
     configure \
     COPYING \
