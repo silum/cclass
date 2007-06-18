@@ -28,8 +28,10 @@ DIST_SUBDIRS = \
     cclass \
     tests
 
+if TESTS
 TESTS = \
     tests/cclass
+endif
 
 aclocaldir = \
     $(datadir)/aclocal

@@ -38,6 +38,23 @@ AM_INIT_AUTOMAKE([subdir-objects])
 # create a config.h file (Automake will add -DHAVE_CONFIG_H)
 AM_CONFIG_HEADER([config.h])
 
+AC_ARG_ENABLE(
+    [tests],
+    [AC_HELP_STRING(
+        [--disable-tests],
+        [disable unit tests])],
+    [],
+    [enable_tests="yes"],
+)
+if test x"$enable_tests" = x"yes"; then
+    AC_DEFINE_UNQUOTED(
+        [ENABLE_TESTS],
+        [1],
+        [Define to 1 if you want to enable unit tests]
+    )
+fi
+AM_CONDITIONAL([TESTS], [test x"$enable_tests" = x"yes"])
+
 dnl --------------------------------------------------------------------
 dnl Checks for programs.
 
@@ -48,7 +65,12 @@ AM_PROG_CC_C_O
 dnl --------------------------------------------------------------------
 dnl Checks for libraries.
 
-AM_PATH_CHECK([], [], [AC_MSG_ERROR([libcheck required])])
+if test $enable_tests = "yes"; then
+    AM_PATH_CHECK([], [],
+        [AC_MSG_ERROR(
+            [libcheck required, except when --disable-tests is used])]
+    )
+fi
 
 dnl --------------------------------------------------------------------
 dnl Checks for header files.
