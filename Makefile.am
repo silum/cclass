@@ -28,11 +28,6 @@ DIST_SUBDIRS = \
     cclass \
     tests
 
-if TESTS
-TESTS = \
-    tests/cclass
-endif
-
 aclocaldir = \
     $(datadir)/aclocal
 dist_aclocal_DATA = \
@@ -51,6 +46,11 @@ lib_LTLIBRARIES = \
 
 check_PROGRAMS = \
     $(TESTS)
+
+if TESTS
+TESTS = \
+    tests/cclass
+endif
 
 cclass_libcclass_la_LDFLAGS = \
     -version-info $(LIBVERSION)
