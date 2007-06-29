@@ -40,11 +40,11 @@
 #define PROGRAM_DOC  PROGRAM_NAME " test program"
 
 /** program version */
-static const char *argp_program_version =
+const char *argp_program_version =
 PROGRAM_NAME " (" PACKAGE_NAME ") " PACKAGE_VERSION;
 
 /** bug report address */
-static const char *argp_program_bug_address = PACKAGE_BUGREPORT;
+const char *argp_program_bug_address = PACKAGE_BUGREPORT;
 
 /** argp children */
 static const struct argp_child argp_children[] = {
