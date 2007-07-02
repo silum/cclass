@@ -44,7 +44,7 @@ __BEGIN_DECLS
  * include file that gets included into all source files. NEWHANDLE() is
  * usually not used in source files.
  *
- * @param handle  new handle to declare
+ * @param[in] handle  new handle to declare
  *
  * For example:
  * @code
@@ -65,9 +65,9 @@ __BEGIN_DECLS
  * The CLASS() macro is used only by source files that implement an
  * object.  The CLASS() macro is never used in include files.
  *
- * @param object  the object handle, to be used in the VERIFY* type
+ * @param[in] object  the object handle, to be used in the VERIFY* type
  * macros
- * @param handle  the object handle type, used to declare an object
+ * @param[in] handle  the object handle type, used to declare an object
  *
  * For example:
  * @code
@@ -91,7 +91,7 @@ __BEGIN_DECLS
  * Verify that the object (variable name) matches the object type, as
  * declared to the heap manager.
  *
- * @param obj  object to verify
+ * @param[in] obj  object to verify
  *
  * For example:
  * @code
@@ -111,7 +111,7 @@ __BEGIN_DECLS
  * Verify that the object (variable name) matches the object type, as
  * declared to the heap manager, or that the object is NULL.
  *
- * @param obj  object to verify
+ * @param[in] obj  object to verify
  *
  * For example:
  * @code
