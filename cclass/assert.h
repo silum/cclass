@@ -63,7 +63,7 @@ __BEGIN_DECLS
   extern char _cclass_compiler_assert[(exp)?1:-1]
 
 /**
- * @brief Set to true when an assertion failure has occured
+ * @brief Set to true when an assertion failure has occurred
  */
 extern bool XASSERT_FAILURE;
 /**
@@ -78,7 +78,7 @@ extern bool XASSERT_INTERACTIVE;
  * Call the user function and tests for assertion failures and memory
  * allocation on return.
  *
- * @param user_func  user defined function
+ * @param[in] user_func  user defined function
  *
  * @return EXIT_SUCCESS if no errors occurred, else EXIT_FAILURE
  */
@@ -89,25 +89,23 @@ int cclass_assert_test(void (*user_func)());
  *
  * This function does not return.
  *
- * @param fmt  printf-like format of error message
- * @param ...  printf-like arguments
+ * @param[in] fmt  printf-like format of error message
+ * @param[in] ...  printf-like arguments
  */
-void
-cclass_assert_fail(const char *fmt,
-		   ...);
+void cclass_assert_fail(const char *fmt,
+			...);
 
 /**
  * @brief User defined assertion failure report
  *
- * Print an error message refering to the file name and line number
- * where the error has occured.
+ * Print an error message referring to the file name and line number
+ * where the error has occurred.
  *
- * @param file  name of file where error occured
- * @param line  line number where error occured
+ * @param[in] file  name of file where error occurred
+ * @param[in] line  line number where error occurred
  */
-void
-cclass_assert_report(const char *file,
-		     int line);
+void cclass_assert_report(const char *file,
+			  int line);
 
 __END_DECLS
 
