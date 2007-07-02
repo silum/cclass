@@ -32,7 +32,7 @@ __BEGIN_DECLS
  * @def FREEOBJ(obj)
  * @brief Free memory allocated memory for an object
  *
- * @param obj  object to free
+ * @param[in,out] obj  object to free
  *
  * Usage:
  * @code
@@ -48,7 +48,7 @@ __BEGIN_DECLS
  * @def ISPOWER(x)
  * @brief Test if a number is a power of two
  *
- * @param x  number to check
+ * @param[in] x  number to check
  *
  * @return 0 if number is not a power of two
  *
@@ -69,7 +69,7 @@ __BEGIN_DECLS
  *
  * Call the USE_XASSERT macro at the top of the source file.
  *
- * @param size  number of bytes to allocate
+ * @param[in] size  number of bytes to allocate
  *
  * Usage:
  * @code
@@ -78,6 +78,9 @@ __BEGIN_DECLS
  * // ...
  * FREEOBJ(foo);
  * @endcode
+ *
+ * @return a pointer to allocated memory or NULL if the allocation
+ * failed
  */
 #define MALLOC(size) \
   cclass_malloc(size,NULL,SRCFILE,__LINE__)
@@ -88,8 +91,8 @@ __BEGIN_DECLS
  *
  * Call the USE_XASSERT macro at the top of the source file.
  *
- * @param array  new array
- * @param size  number of elements to allocate
+ * @param[in] array  new array
+ * @param[in] size  number of elements to allocate
  *
  * Usage:
  * @code
@@ -106,7 +109,7 @@ __BEGIN_DECLS
  * @def NEWOBJ(obj)
  * @brief Allocate memory for an object
  *
- * @param obj  object to allocate
+ * @param[in] obj  object to allocate
  *
  * Usage:
  * @code
@@ -124,8 +127,8 @@ __BEGIN_DECLS
  *
  * Call the USE_XASSERT macro at the top of the source file.
  *
- * @param dest  new string
- * @param size  number of bytes to allocate
+ * @param[in] dest  new string
+ * @param[in] size  number of bytes to allocate
  *
  * Usage:
  * @code
@@ -144,7 +147,7 @@ __BEGIN_DECLS
  *
  * Call the USE_XASSERT macro at the top of the source file.
  *
- * @param array  array to check
+ * @param[in] array  array to check
  *
  * Usage:
  * @code
@@ -162,8 +165,8 @@ __BEGIN_DECLS
  *
  * Call the USE_XASSERT macro at the top of the source file.
  *
- * @param array  resized array
- * @param size  number of elements
+ * @param[in] array  resized array
+ * @param[in] size  number of elements
  *
  * Usage:
  * @code
@@ -184,8 +187,8 @@ __BEGIN_DECLS
  *
  * Call the USE_XASSERT macro at the top of the source file.
  *
- * @param dest  duplicated string
- * @param source  string to duplicate
+ * @param[in] dest  duplicated string
+ * @param[in] source  string to duplicate
  *
  * Usage:
  * @code
@@ -203,7 +206,7 @@ __BEGIN_DECLS
  * Free a block of memory that was previously allocated through
  * cclass_malloc().
  *
- * @param p  heap pointer to free or 0
+ * @param[in] p  heap pointer to free or 0
  *
  * @return 0
  *
@@ -226,10 +229,10 @@ typedef struct classdesc_tag {
  *
  * Allocate a new block of memory from the heap.
  *
- * @param size  size of object to allocate
- * @param desc  class descriptor for object (or 0)
- * @param file  filename where object was allocated
- * @param line  line number where object was allocated
+ * @param[in] size  size of object to allocate
+ * @param[in] desc  class descriptor for object (or 0)
+ * @param[in] file  filename where object was allocated
+ * @param[in] line  line number where object was allocated
  *
  * @return a pointer to the memory object or 0
  *
@@ -245,10 +248,10 @@ void *cclass_malloc(size_t size,
  *
  * Reallocate a block of memory.
  *
- * @param p  heap object to reallocate or 0
- * @param size  new size of the object
- * @param file  filename where realloc is taking place
- * @param line  line number where realloc is taking place
+ * @param[in] p  heap object to reallocate or 0
+ * @param[in] size  new size of the object
+ * @param[in] file  filename where realloc is taking place
+ * @param[in] line  line number where realloc is taking place
  *
  * @return a pointer to the reallocated memory or 0
  *
@@ -262,9 +265,9 @@ void *cclass_realloc(void *p,
 /**
  * @brief Memory string duplicator
  *
- * @param s  string to duplicate (or 0)
- * @param file  filename where string is being duplicated
- * @param line  line number where string is being duplicated
+ * @param[in] s  string to duplicate (or 0)
+ * @param[in] file  filename where string is being duplicated
+ * @param[in] line  line number where string is being duplicated
  *
  * @return a pointer to the duplicated string or 0
  *
@@ -279,7 +282,7 @@ void *cclass_strdup(const char *s,
  *
  * Does the given memory pointer point anywhere into the heap.
  *
- * @param p  heap pointer to check
+ * @param[in] p  heap pointer to check
  *
  * @return true if pointer points into the heap, or false if not
  */
