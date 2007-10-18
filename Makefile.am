@@ -39,7 +39,9 @@ nobase_include_HEADERS = \
     cclass/malloc.h
 
 noinst_HEADERS = \
-    tests/dummy.h
+    tests/dummy.h \
+    tests/redirect.h \
+    tests/verbose-argp.h
 
 lib_LTLIBRARIES = \
     cclass/libcclass.la
