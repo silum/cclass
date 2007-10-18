@@ -45,7 +45,7 @@ __BEGIN_DECLS
 #define FREEOBJ(obj) (obj = cclass_free(obj))
 
 /**
- * @def ISPOWER(x)
+ * @def ISPOWER2(x)
  * @brief Test if a number is a power of two
  *
  * @param[in] x  number to check
