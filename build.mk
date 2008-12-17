@@ -1,1 +1,1 @@
-aux/build.mk
+aux/makefiles/build.mk
