@@ -32,6 +32,7 @@ AC_REVISION([$Rev$])
 AC_CONFIG_SRCDIR([Makefile.am])
 AC_CONFIG_AUX_DIR([config])
 AC_SUBST([ac_aux_dir])
+AC_CONFIG_MACRO_DIR([m4])
 
 AM_INIT_AUTOMAKE([subdir-objects])
 
