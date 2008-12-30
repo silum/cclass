@@ -80,13 +80,8 @@ dist-rpm: distcheck
 	rpmbuild -ta $(distdir).tar.gz
 
 ChangeLog:
-	cd $(srcdir) ; \
-    svn log -v --xml \
-        | aux/bin/svn2log.py \
-            --only-date \
-            --output $(top_builddir)/$@ \
-            --prefix='/(branches/[^/]+|trunk)' \
-            --users=aux/users
+	extern/svn2cl/svn2cl.sh \
+        --authors extern/authors
 
 EXTRA_DIST = \
     $(ac_aux_dir)/autogen.sh \

@@ -1,1 +1,1 @@
-aux/BUILD
+extern/BUILD

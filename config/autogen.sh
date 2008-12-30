@@ -1,1 +1,0 @@
-../aux/config/autogen.sh

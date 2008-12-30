@@ -1,1 +1,1 @@
-../aux/m4/check.m4
+../extern/m4/check.m4

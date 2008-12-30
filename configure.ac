@@ -30,7 +30,7 @@ AC_SUBST([LIBVERSION])
 AC_REVISION([$Rev$])
 
 AC_CONFIG_SRCDIR([Makefile.am])
-AC_CONFIG_AUX_DIR([config])
+AC_CONFIG_AUX_DIR([build-aux])
 AC_SUBST([ac_aux_dir])
 AC_CONFIG_MACRO_DIR([m4])
 

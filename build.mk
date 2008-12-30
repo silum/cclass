@@ -1,1 +1,1 @@
-aux/makefiles/build.mk
+extern/makefiles/build.mk

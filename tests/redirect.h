@@ -1,1 +1,1 @@
-../aux/redirect/redirect.h
+../extern/redirect/redirect.h

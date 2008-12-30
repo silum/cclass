@@ -1,1 +1,1 @@
-../aux/argp/verbose-argp.c
+../extern/argp/verbose-argp.c

@@ -1,1 +1,1 @@
-../aux/makefiles/Makefile.am.subdir
+../extern/makefiles/Makefile.am.subdir
