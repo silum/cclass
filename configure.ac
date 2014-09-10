@@ -67,7 +67,7 @@ dnl --------------------------------------------------------------------
 dnl Checks for libraries.
 
 if test $enable_tests = "yes"; then
-    AM_PATH_CHECK([], [],
+    AM_PATH_CHECK([], [CHECK_LIBS="$CHECK_LIBS -lm -lrt -lpthread"],
         [AC_MSG_ERROR(
             [libcheck required, except when --disable-tests is used])]
     )
